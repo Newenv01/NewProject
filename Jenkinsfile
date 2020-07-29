@@ -19,7 +19,7 @@ pipeline{
                     sh "sh /home/testenv/one.sh"   
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
-                    sh "lsq -ltr"
+                    sh "ls -ltr"
                     //}
                   } catch (err) {
                       echo err.getMessage()
