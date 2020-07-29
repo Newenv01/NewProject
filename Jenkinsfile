@@ -14,16 +14,16 @@ pipeline{
            //script {
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
-                  try {
+                  //try {
                     //dir('/root/test/'){    
                     //sh "cd /root/test"   
                     sh "/usr/bin/sh /root/test/one.sh"
                     //}
-                  } catch (err) {
-                      echo err.getMessage()
-                      echo "Error detected - PREBUILD."
-                      currentBuild.result = 'FAILURE'
-                  }
+                  //} catch (err) {
+                    //  echo err.getMessage()
+                      //echo "Error detected - PREBUILD."
+                      //currentBuild.result = 'FAILURE'
+                  //}
            //} 
        }
     }
