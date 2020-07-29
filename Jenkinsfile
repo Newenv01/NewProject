@@ -16,7 +16,7 @@ pipeline{
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/root/test/'){    
-                    sh('cd /root/test/')    
+                    sh('cd /root/test')    
                     sh('/usr/bin/touch one.txt')
                     //sh('./one.sh')
                     //}
