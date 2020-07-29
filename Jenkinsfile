@@ -17,7 +17,7 @@ pipeline{
                   try {
                     //dir('/root/test/'){    
                     //sh "cd /root/test"   
-                    sh "./root/test/one.sh"
+                    sh "/usr/bin/sh /root/test/one.sh"
                     //}
                   } catch (err) {
                       echo err.getMessage()
