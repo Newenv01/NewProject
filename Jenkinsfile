@@ -19,7 +19,7 @@ pipeline{
                     sh "cd /home/testenv/"   
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
-                    sh('./one.sh')
+                    sh "/usr/bin/sh one.sh"
                     //}
                   //} catch (err) {
                     //  echo err.getMessage()
