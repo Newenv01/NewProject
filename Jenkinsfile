@@ -17,7 +17,8 @@ pipeline{
                   //try {
                     //dir('/root/test/'){    
                     //sh "cd /root/test"   
-                    sh "/usr/bin/bash /root/test/one.sh"
+                    //sh "/usr/bin/bash /root/test/one.sh"
+                    sh('cd /root/test/ && chmod +x one.sh && ./one.sh')
                     sh "echo Testing"
                     //}
                   //} catch (err) {
