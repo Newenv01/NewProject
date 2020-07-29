@@ -13,7 +13,9 @@ pipeline{
       steps{
            script {
                   try {
-                        sh "/root/test/one.sh"
+                    dir('/root/test/'){    
+                        sh('./one.sh')
+                    }
                   } catch (err) {
                       echo err.getMessage()
                       echo "Error detected - PREBUILD."
