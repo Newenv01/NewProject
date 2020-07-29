@@ -16,8 +16,8 @@ pipeline{
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/root/test/'){    
-                    sh "cd /root/test"   
-                    sh "./one.sh"
+                    //sh "cd /root/test"   
+                    sh "./root/test/one.sh"
                     //}
                   } catch (err) {
                       echo err.getMessage()
