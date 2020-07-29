@@ -11,22 +11,22 @@ pipeline{
     }
     stage('Prepration'){
       steps{
-           //script {
+           script {
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
-                  //try {
+                  try {
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"   
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
                     //}
-                  //} catch (err) {
-                    //  echo err.getMessage()
-                      //echo "Error detected - PREBUILD."
-                      //currentBuild.result = 'FAILURE'
-                  //}
-           //} 
+                  } catch (err) {
+                      echo err.getMessage()
+                      echo "Error detected - PREBUILD."
+                      currentBuild.result = 'FAILURE'
+                  }
+           } 
        }
     }
   }
