@@ -17,7 +17,7 @@ pipeline{
                   try {
                     dir('/root/test/'){    
                     //sh('')    
-                    sh('./one.sh')
+                    sh('ls -ltr')
                     }
                   } catch (err) {
                       echo err.getMessage()
