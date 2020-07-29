@@ -12,6 +12,8 @@ pipeline{
     stage('Prepration'){
       steps{
            script {
+                  sh "chmod +x -R ${env.WORKSPACE}/../${env.JOB_NAME}@script"
+                  sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     dir('/root/test/'){    
                         sh('./one.sh')
