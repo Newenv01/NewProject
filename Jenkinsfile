@@ -15,9 +15,9 @@ pipeline{
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
-                    dir('/root/test/'){    
-                        sh('./one.sh')
-                    }
+                    //dir('/root/test/'){    
+                        sh('./root/test/one.sh')
+                    //}
                   } catch (err) {
                       echo err.getMessage()
                       echo "Error detected - PREBUILD."
