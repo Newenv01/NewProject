@@ -11,7 +11,7 @@ pipeline{
     }
     stage('Prepration'){
       steps{
-           script {
+           //script {
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
@@ -24,7 +24,7 @@ pipeline{
                       echo "Error detected - PREBUILD."
                       currentBuild.result = 'FAILURE'
                   }
-           } 
+           //} 
        }
     }
   }
