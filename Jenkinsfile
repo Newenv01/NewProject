@@ -1,6 +1,6 @@
 pipeline{
   options { timeout(time: 3, unit: 'MINS') }
-  options { timestamps() }
+  //options { timestamps() }
   agent any
 
   stages{
