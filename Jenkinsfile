@@ -17,7 +17,8 @@ pipeline{
                   try {
                     //dir('/root/test/'){    
                     sh('cd /root/test/')    
-                    sh('./one.sh')
+                    sh('/usr/bin/touch one.txt')
+                    //sh('./one.sh')
                     //}
                   } catch (err) {
                       echo err.getMessage()
