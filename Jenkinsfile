@@ -18,8 +18,8 @@ pipeline{
                     //dir('/root/test/'){    
                     //sh "cd /root/test"   
                     //sh "/usr/bin/bash /root/test/one.sh"
-                    sh('cd /root/test/ && chmod +x one.sh && ./one.sh')
-                    sh "echo Testing"
+                    //sh('cd /root/test/ && chmod +x one.sh && ./one.sh')
+                    sh "bash one.sh"
                     //}
                   //} catch (err) {
                     //  echo err.getMessage()
