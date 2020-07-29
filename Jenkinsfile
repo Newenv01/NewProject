@@ -15,12 +15,12 @@ pipeline{
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   //try {
-                    dir('/home/testenv/'){    
-                    //sh "cd /root/test"   
+                    //dir('/home/testenv/'){    
+                    sh "cd /home/testenv/"   
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh('./one.sh')
-                    }
+                    //}
                   //} catch (err) {
                     //  echo err.getMessage()
                       //echo "Error detected - PREBUILD."
