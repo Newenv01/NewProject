@@ -22,7 +22,7 @@ pipeline{
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
-                    sh "echo $TAG_NAME"
+                    //sh "echo $TAG_NAME"
                     //}
                   } catch (err) {
                       echo err.getMessage()
