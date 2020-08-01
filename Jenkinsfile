@@ -39,10 +39,12 @@ pipeline{
             serverId: 'JfrogServer',
             spec: '''{
                      "files": [
-                     {
-                          "pattern": "${env.WORKSPACE}/*lcad*.zip",
-                          "target": "LCADPB/"
-                     }
+                         {
+                          "pattern": "${env.WORKSPACE}/*.gz",
+                          "target": "LCADPB/",
+                          "props": "type=gz;status=ready",
+                          "failNoOp": "true"
+                         }
                      ]
              }''',
             // Optional - Associate the uploaded files with the following custom build name and build number,
@@ -50,7 +52,7 @@ pipeline{
             // If not set, the files will be associated with the default build name and build number (i.e the
             // the Jenkins job name and number).
             buildName: 'LCADPB170',
-          buildNumber: "${BUILD_ID}"
+            buildNumber: "${BUILD_ID}"
          )
       }
     }
