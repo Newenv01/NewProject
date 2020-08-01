@@ -51,7 +51,7 @@ pipeline{
             // the Jenkins job name and number).
             buildName: 'LCADPB170',
             buildNumber: "${BUILD_ID}",
-            props: 'type=gz;status=ready',
+            //props: 'type=gz;status=ready',
             failNoOp: true
          )
       }
