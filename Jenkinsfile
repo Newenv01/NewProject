@@ -41,7 +41,7 @@ pipeline{
                      "files": [
                      {
                           "pattern": "${PROJECT_NAME}/${JOB_NAME}/*lcad*.zip",
-                          "target": "LCADPB/"
+                          "target": "http://34.219.106.166:8082/artifactory/LCADPB/"
                      }
                      ]
              }''',
