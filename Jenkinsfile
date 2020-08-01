@@ -17,7 +17,7 @@ pipeline{
                   try {
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
-                    sh "echo "copy shell files from /home/testenv/ to ${env.WORKSPACE}""
+                    sh "echo ${env.WORKSPACE}"
                     sh "sudo /usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/${env.JOB_NAME}/"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
