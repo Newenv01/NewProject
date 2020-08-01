@@ -40,7 +40,7 @@ pipeline{
             spec: '''{
                      "files": [
                          {
-                          "pattern": "${env.WORKSPACE}/*.gz",
+                          "pattern": "**/*.gz",
                           "target": "LCADPB/"
                          }
                      ]
