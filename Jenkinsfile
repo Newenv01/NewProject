@@ -41,9 +41,7 @@ pipeline{
                      "files": [
                          {
                           "pattern": "${env.WORKSPACE}/*.gz",
-                          "target": "LCADPB/",
-                          "props": "type=gz;status=ready",
-                          "failNoOp": "true"
+                          "target": "LCADPB/"
                          }
                      ]
              }''',
@@ -53,6 +51,8 @@ pipeline{
             // the Jenkins job name and number).
             buildName: 'LCADPB170',
             buildNumber: "${BUILD_ID}"
+            //"props": "type=gz;status=ready",
+            //"failNoOp": "true"
          )
       }
     }
