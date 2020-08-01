@@ -40,8 +40,8 @@ pipeline{
             spec: '''{
                      "files": [
                      {
-                          "pattern": "${PROJECT_NAME}/${JOB_NAME}/*lcad*.zip",
-                          "target": "http://34.219.106.166:8082/artifactory/LCADPB/"
+                          "pattern": "${env.WORKSPACE}/*lcad*.zip",
+                          "target": "LCADPB/"
                      }
                      ]
              }''',
@@ -49,8 +49,8 @@ pipeline{
             // as build artifacts.
             // If not set, the files will be associated with the default build name and build number (i.e the
             // the Jenkins job name and number).
-            // buildName: 'holyFrog',
-            // buildNumber: '42'
+            buildName: 'LCADPB170',
+          buildNumber: '${BUILD_NUMBER}'
          )
       }
     }
