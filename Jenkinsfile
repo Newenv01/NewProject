@@ -50,9 +50,9 @@ pipeline{
             // If not set, the files will be associated with the default build name and build number (i.e the
             // the Jenkins job name and number).
             buildName: 'LCADPB170',
-            buildNumber: "${BUILD_ID}"
+            buildNumber: "${BUILD_ID}",
             //"props": "type=gz;status=ready",
-            //"failNoOp": "true"
+            "failNoOp": "true"
          )
       }
     }
