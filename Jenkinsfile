@@ -17,6 +17,7 @@ pipeline{
                   try {
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
+                    sh "/usr/bin/gzip -f /home/testenv/*.sh"
                     sh "echo ${env.WORKSPACE}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
                     //sh "/usr/bin/bash /root/test/one.sh"
