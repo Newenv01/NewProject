@@ -52,7 +52,7 @@ pipeline{
             buildName: 'LCADPB170',
             buildNumber: "${BUILD_ID}",
             //props: 'type=gz;status=ready',
-            failNoOp: true
+            failNoOp: 'true'
          )
       }
     }
