@@ -16,7 +16,9 @@ pipeline{
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/home/testenv/'){    
-                    sh "sh /home/testenv/one.sh"   
+                    sh "sh /home/testenv/one.sh"
+                    sh "copy shell files from /home/testenv/ to ${env.WORKSPACE}/${env.JOB_NAME}"
+                    sh "sh sudo /usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/${env.JOB_NAME}/"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
@@ -24,7 +26,7 @@ pipeline{
                     //}
                   } catch (err) {
                       echo err.getMessage()
-                      echo "Error detected - PREBUILD."
+                      echo "Error detected - BUILD Failure."
                       currentBuild.result = 'FAILURE'
                   }
            } 
