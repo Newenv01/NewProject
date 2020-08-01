@@ -32,12 +32,12 @@ pipeline{
     stage('Upload'){
       steps{
         rtUpload (
-            serverId: 'Artifactory-1',
+            serverId: 'JfrogServer',
             spec: '''{
                      "files": [
                      {
-                          "pattern": "bazinga/*froggy*.zip",
-                          "target": "bazinga-repo/froggy-files/"
+                          "pattern": "${JOB_NAME}/*lcad*.zip",
+                          "target": "LCADPB/"
                      }
                      ]
              }''',
