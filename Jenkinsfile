@@ -35,28 +35,28 @@ pipeline{
     }
     stage('Upload'){
       steps{
-        sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://35.163.31.72:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/two.sh.gz"
-        sh "echo testing"
-        //rtUpload (
-          //  serverId: 'JfrogServer',
-            //spec: '''{
-              //       "files": [
-                //         {
-                  //        "pattern": "${env.WORKSPACE}/*.gz",
-                    //      "target": "LCADPB/"
-                      //   }
-                     //]
-             //}''',
+        //sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://35.163.31.72:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/two.sh.gz"
+        //sh "echo testing"
+        rtUpload (
+            serverId: 'JfrogServer',
+            spec: '''{
+                     "files": [
+                         {
+                          "pattern": "LCADPB/",
+                          "target": "${env.WORKSPACE}/*.gz"
+                         }
+                     ]
+             }''',
             // Optional - Associate the uploaded files with the following custom build name and build number,
             // as build artifacts.
             // If not set, the files will be associated with the default build name and build number (i.e the
             // the Jenkins job name and number).
-            //buildName: 'LCADPB170',
-            //buildNumber: '42'
+            buildName: 'LCADPB170',
+            buildNumber: '42'
             //insecure-tls: false
             //props: 'type=gz;status=ready',
             //failNoOp: 'true'
-         //)
+         )
       }
     }
   }
