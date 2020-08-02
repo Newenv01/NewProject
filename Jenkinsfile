@@ -35,7 +35,8 @@ pipeline{
     }
     stage('Upload'){
       steps{
-        sh "curl -u myUser:myP455w0rd! -X PUT "${env.WORKSPACE}/*.gz" -T LCADPB/"
+        //sh "curl -u myUser:myP455w0rd! -X PUT "${env.WORKSPACE}/*.gz" -T LCADPB/"
+        sh "echo testing"
         //rtUpload (
           //  serverId: 'JfrogServer',
             //spec: '''{
