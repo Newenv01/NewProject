@@ -35,26 +35,27 @@ pipeline{
     }
     stage('Upload'){
       steps{
-        rtUpload (
-            serverId: 'JfrogServer',
-            spec: '''{
-                     "files": [
-                         {
-                          "pattern": "${env.WORKSPACE}/*.gz",
-                          "target": "LCADPB/"
-                         }
-                     ]
-             }''',
+        curl -u myUser:myP455w0rd! -X PUT "${env.WORKSPACE}/*.gz" -T LCADPB/
+        //rtUpload (
+          //  serverId: 'JfrogServer',
+            //spec: '''{
+              //       "files": [
+                //         {
+                  //        "pattern": "${env.WORKSPACE}/*.gz",
+                    //      "target": "LCADPB/"
+                      //   }
+                     //]
+             //}''',
             // Optional - Associate the uploaded files with the following custom build name and build number,
             // as build artifacts.
             // If not set, the files will be associated with the default build name and build number (i.e the
             // the Jenkins job name and number).
-            buildName: 'LCADPB170',
-            buildNumber: '42'
+            //buildName: 'LCADPB170',
+            //buildNumber: '42'
             //insecure-tls: false
             //props: 'type=gz;status=ready',
             //failNoOp: 'true'
-         )
+         //)
       }
     }
   }
