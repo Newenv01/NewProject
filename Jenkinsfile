@@ -35,7 +35,7 @@ pipeline{
     }
     stage('Upload'){
       steps{
-        sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://35.163.31.72:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/three.sh.gz; released=true;build.number=1.0"
+        sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://35.163.31.72:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/three.sh.gz; released=true; build.number=1.0"
         sh "echo testing"
         //rtUpload (
             //serverId: 'JfrogServer',
