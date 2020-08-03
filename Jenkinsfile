@@ -43,7 +43,6 @@ pipeline{
                      "files": [
                          {
                           "pattern": "LCADPB/",
-                          //"target": "${env.WORKSPACE}/*.gz"
                           "target": "**/*.gz"
                          }
                      ]
@@ -54,6 +53,7 @@ pipeline{
             // the Jenkins job name and number).
             buildName: 'LCADPB170',
             buildNumber: '42'
+            //"target": "${env.WORKSPACE}/*.gz"
             //insecure-tls: false
             //props: 'type=gz;status=ready',
             //failNoOp: 'true'
