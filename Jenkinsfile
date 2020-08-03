@@ -57,7 +57,7 @@ pipeline{
             //insecure-tls: false
             //props: 'type=gz;status=ready',
             //failNoOp: 'true'
-         )
+         //)
       }
     }
   }
