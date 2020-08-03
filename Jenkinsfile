@@ -37,8 +37,8 @@ pipeline{
       steps{
         //sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://334.209.82.113:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.*"
         //sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://34.209.82.113:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.* -H 'X-Explode-Archive: true'; released=true"
-        sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' \"http://34.209.82.113:8081/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.* "
-        sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' -O \"http://34.209.82.113:8081/artifactory/LCADPB/\""
+        //sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' \"http://34.209.82.113:8081/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.* "
+        //sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' -O \"http://34.209.82.113:8081/artifactory/LCADPB/\""
         sh "echo testing"
         //rtUpload (
             //serverId: 'JfrogServer',
@@ -61,6 +61,12 @@ pipeline{
             //props: 'type=gz;status=ready',
             //failNoOp: 'true'
          //)
+        script {
+          def allZips = ['one.sh.gz', 'two.sh.gz', 'three.sh.gz']
+          for (i = 0; i <= allZips.size(); i++){
+            sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' \"http://34.209.82.113:8081/artifactory/LCADPB/\" -T ${env.WORKSPACE}/${allZips[i]}"
+          }
+        }
       }
     }
   }
