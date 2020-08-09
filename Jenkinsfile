@@ -66,7 +66,7 @@ pipeline{
           //for (i = 0; i < allZips.size(); i++){
             //sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' \"http://34.209.82.113:8081/artifactory/LCADPB/\" -T ${env.WORKSPACE}/${allZips[i]} 2>/dev/null"
           //}
-          buildName = 'LCADPB170',
+          buildName = 'LCADPB170'
           buildNumber = '42'
           buildEnvironment = "Dev"
           def server = Artifactory.server "JfrogServer"
