@@ -5,7 +5,7 @@ pipeline{
     
   stages{
     stage('SCM CheckOut'){
-      cleanWs()
+      steps{[$class: 'WsCleanup']}
       steps{
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
@@ -39,7 +39,7 @@ pipeline{
     }
     stage('Artifactory'){
       steps{
-        sh "echo testing"
+        sh "echo \"${env.BUILD_TAG}\""
         script {
           buildName = "${env.BUILD_NAME}"
           buildNumber = "${env.BUILD_NUMBER}"
