@@ -43,7 +43,7 @@ pipeline{
         script {
           buildName = "${env.BUILD_NAME}"
           buildNumber = "${env.BUILD_NUMBER}"
-          buildEnvironment = "${env.BUILD_NAME}"
+          buildEnvironment = "${env.BRANCH_NAME}"
           def server = Artifactory.server "JfrogServer"
           def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/"}]}'
 
