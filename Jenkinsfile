@@ -74,7 +74,7 @@ pipeline{
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
-          buildInfo.number = LCAD_Release_Number
+          //buildInfo.number = "LCAD_Release_Number"
           server.upload spec: uploadSpec, buildInfo: buildInfo
           server.publishBuildInfo buildInfo
         }
