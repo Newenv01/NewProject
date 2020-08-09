@@ -2,7 +2,8 @@ pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
   //options { timestamps() }
   agent any
-
+  cleanWs()
+  
   stages{
     stage('SCM CheckOut'){
       steps{
@@ -29,46 +30,20 @@ pipeline{
                       echo err.getMessage()
                       echo "Error detected - BUILD Failure."
                       currentBuild.result = 'FAILURE'
+                    mail to: 'balu0priya1@gmail.com',
+                           subject: "FAILED - Job '${JOB_NAME}' '${BUILD_NUMBER}'",
+                           body: "Dear Team,\n\n Please go to ${BUILD_URL} and verify the build.\n\nRegards\nSupport Team."
                   }
            } 
        }
     }
     stage('Artifactory'){
       steps{
-        //sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://334.209.82.113:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.*"
-        //sh "/usr/bin/curl -u admin:Newenv_01 -X PUT \"http://34.209.82.113:8082/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.* -H 'X-Explode-Archive: true'; released=true"
-        //sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' \"http://34.209.82.113:8081/artifactory/LCADPB/\" -T ${env.WORKSPACE}/*.* "
-        //sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' -O \"http://34.209.82.113:8081/artifactory/LCADPB/\""
         sh "echo testing"
-        //rtUpload (
-            //serverId: 'JfrogServer',
-            //spec: '''{
-              //       "files": [
-                //         {
-                  //        "pattern": "LCADPB/",
-                    //      "target": "**/*.gz"
-                     //    }
-                    // ]
-             //}''',
-            // Optional - Associate the uploaded files with the following custom build name and build number,
-            // as build artifacts.
-            // If not set, the files will be associated with the default build name and build number (i.e the
-            // the Jenkins job name and number).
-            //buildName: 'LCADPB170',
-            //buildNumber: '42'
-            //"target": "${env.WORKSPACE}/*.gz"
-            //insecure-tls: false
-            //props: 'type=gz;status=ready',
-            //failNoOp: 'true'
-         //)
         script {
-          //def allZips = ['one.sh.gz', 'two.sh.gz', 'three.sh.gz']
-          //for (i = 0; i < allZips.size(); i++){
-            //sh "/usr/bin/curl -H 'X-JFrog-Art-Api:AKCp5fUDwCDnyrHMUnthn1rAKH2uYnNAKbcJXV9Av4ABqGUVdq78fqNghuKCgTs64pfvedBzz' \"http://34.217.56.223:8081/artifactory/LCADPB/\" -T ${env.WORKSPACE}/${allZips[i]} 2>/dev/null"
-          //}
-          buildName = 'LCADPB170'
-          buildNumber = '42'
-          buildEnvironment = "Dev"
+          buildName = "${env.BUILD_NAME}"
+          buildNumber = "${env.BUILD_NUMBER}"
+          buildEnvironment = "${env.BUILD_NAME}"
           def server = Artifactory.server "JfrogServer"
           def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/"}]}'
 
