@@ -2,10 +2,10 @@ pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
   //options { timestamps() }
   agent any
-  cleanWs()
-  
+    
   stages{
     stage('SCM CheckOut'){
+      cleanWs()
       steps{
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
