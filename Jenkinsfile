@@ -5,7 +5,7 @@ pipeline{
     
   stages{
     stage('SCM CheckOut'){
-      steps{[$class: 'WsCleanup']}
+      //steps{[$class: 'WsCleanup']}
       steps{
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
