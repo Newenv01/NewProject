@@ -41,7 +41,7 @@ pipeline{
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         script {
-          buildName = "${env.BUILD_NAME}"
+          buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${env.BRANCH_NAME}"
           def server = Artifactory.server "JfrogServer"
