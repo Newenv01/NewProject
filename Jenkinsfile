@@ -37,13 +37,13 @@ pipeline{
            } 
        }
     }
-    stage('Artifactory'){
+    stage('Upload'){
       steps{
-        sh "echo \"${env.BUILD_TAG} and ${env.TAG_UNIXTIME} and ${env.TAG_NAME}\""
+        sh "echo \"${env.BUILD_TAG}\""
         script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
-          buildEnvironment = "$BRANCH_NAME"
+          buildEnvironment = "${env.BRANCH_NAME}"
           def server = Artifactory.server "JfrogServer"
           def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/"}]}'
 
