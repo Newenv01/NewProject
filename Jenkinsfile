@@ -70,7 +70,7 @@ pipeline{
           buildNumber = '42'
           buildEnvironment = "Dev"
           def server = Artifactory.server "JfrogServer"
-          def uploadSpec = '{"files": [{"pattern": "*.zip", "target": "LCADPB/"}]}'
+          def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
