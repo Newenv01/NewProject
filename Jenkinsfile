@@ -1,3 +1,5 @@
+currentBuild.displayName = "LCADPIP-#"+currentBuild.number
+
 pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
   //options { timestamps() }
@@ -52,6 +54,15 @@ pipeline{
           //buildInfo.number = "LCAD_Release_Number"
           server.upload spec: uploadSpec, buildInfo: buildInfo
           server.publishBuildInfo buildInfo
+        }
+      }
+    }
+    stage('Deploy Files to Remote'){
+      steps{
+        sshagent(['RemoteMac']) {
+            sh """
+                 ssh -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
+            """
         }
       }
     }
