@@ -7,6 +7,7 @@ pipeline{
 
   environment {
     Remote_ID = deployevn()
+    RmtSrvIP = deploySrvIP()
   }
   
   stages{
@@ -65,7 +66,7 @@ pipeline{
         //sshagent(['RemoteMac']) {
         sshagent(["${Remote_ID}"]) {  
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${RmtSrvIP}:/home/ec2-user/testdir/
             """
         }
       }
@@ -87,3 +88,19 @@ def deployevn() {
       }
     }
 }
+
+def deploySrvIP() {
+  script {
+      if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
+      {
+           def IPAdd="172.31.8.211"
+           return IPAdd
+      }
+      else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
+      {
+           def IPAdd="172.31.15.145"
+           return IPAdd
+      }
+    }
+}
+
