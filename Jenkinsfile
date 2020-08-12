@@ -77,12 +77,12 @@ def deployevn() {
   script {
       if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
       {
-           def RemoteID="RemoteMAc"
+           def RemoteID="RemoteID01"
            return RemoteID
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
-           def RemoteID="RemoteID01"
+           def RemoteID="RemoteMAc"
            return RemoteID
       }
     }
