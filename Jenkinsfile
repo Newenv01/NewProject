@@ -4,10 +4,13 @@ pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
   //options { timestamps() }
   agent any
-    
+
+  environment {
+    Remote_ID = deployevn()
+  }
+  
   stages{
     stage('SCM CheckOut'){
-      //steps{[$class: 'WsCleanup']}
       steps{
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
@@ -26,7 +29,7 @@ pipeline{
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
-                    //sh "echo $TAG_NAME"
+                    sh "echo $BUILD_TAG"
                     //}
                   } catch (err) {
                       echo err.getMessage()
@@ -59,7 +62,8 @@ pipeline{
     }
     stage('Deploy Files to Remote'){
       steps{
-        sshagent(['RemoteMac']) {
+        //sshagent(['RemoteMac']) {
+        sshagent(["${Remote_ID}"]) {  
             sh """
                  scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
             """
@@ -67,4 +71,19 @@ pipeline{
       }
     }
   }
+}
+
+def deployevn() {
+  script {
+      if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
+      {
+           def RemoteID="RemoteMAc"
+           return RemoteID
+      }
+      else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
+      {
+           def RemoteID="RemoteID01"
+           return RemoteID
+      }
+    }
 }
