@@ -61,7 +61,7 @@ pipeline{
       steps{
         sshagent(['RemoteMac']) {
             sh """
-                 ssh -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
             """
         }
       }
