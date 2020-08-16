@@ -64,9 +64,10 @@ pipeline{
     stage('Deploy Files to Remote'){
       steps{
         //sshagent(['RemoteMac']) {
-        sshagent(["${Remote_ID}"]) {  
+        sshagent(["${Remote_ID}"]) {
+            sh "echo ${RmtSrvIP}"
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${RmtSrvIP}:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user ${RmtSrvIP}:/home/ec2-user/testdir/
             """
         }
       }
