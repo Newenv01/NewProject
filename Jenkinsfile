@@ -94,12 +94,12 @@ def deploySrvIP() {
   script {
       if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
       {
-           def IPAdd="172.31.8.211"
+           def RmtSrvIP="172.31.8.211"
            return RmtSrvIP
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
-           def IPAdd="172.31.15.145"
+           def RmtSrvIP="172.31.15.145"
            return RmtSrvIP
       }
     }
