@@ -65,7 +65,7 @@ pipeline{
       steps{
         //sshagent(['RemoteMac']) {
         sshagent(["${Remote_ID}"]) {
-            sh "echo ${RmtSrvIP}"
+            sh "echo ${RmtSrvIP} and ${Remote_ID}"
             sh """
                  scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user ${RmtSrvIP}:/home/ec2-user/testdir/
             """
@@ -104,4 +104,5 @@ def deploySrvIP() {
       }
     }
 }
+
 
