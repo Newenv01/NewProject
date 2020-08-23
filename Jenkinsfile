@@ -20,7 +20,7 @@ pipeline{
       //when { branch 'master' }
       steps{
            script {
-                  sh "chmod +x -R ${env.WORKSPACE}"
+             sh "chmod +x -R ${env.WORKSPACE} and ${Remote_ID}, ${RmtSrvIP}" 
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/home/testenv/'){    
