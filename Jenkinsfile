@@ -101,7 +101,7 @@ def deploySrvIP() {
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
-           def RmtSrvIP="172.31.15.145"
+           def RmtSrvIP="172.31.2.140"
            return RmtSrvIP
       }
     }
