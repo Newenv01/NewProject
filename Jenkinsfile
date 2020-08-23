@@ -17,7 +17,7 @@ pipeline{
       }
     }
     stage('Build'){
-      when { branch 'master' }
+      //when { branch 'master' }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -45,7 +45,7 @@ pipeline{
        }
     }
     stage('Upload'){
-      when { branch 'Dev' }
+      //when { branch 'Dev' }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         script {
