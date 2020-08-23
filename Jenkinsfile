@@ -82,13 +82,13 @@ def deployevn() {
       if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
       {
            def RemoteID="RemoteID01"
-           sh "echo \"test ${RemoteID}\""
+           echo "test RemoteID"
            return RemoteID
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
            def RemoteID="RemoteMAc"
-           sh "echo \"test ${RemoteID}\""
+           echo "test RemoteID"
            return RemoteID
       }
     }
@@ -99,14 +99,12 @@ def deploySrvIP() {
       if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
       {
            def RmtSrvIP="172.31.8.211"
-           sh "echo \"test ${RmtSrvIP}\""
            return RmtSrvIP
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
            def RmtSrvIP="172.31.2.140"
-           sh "echo \"test ${RmtSrvIP}\""
-           return RmtSrvIP
+            return RmtSrvIP
       }
     }
 }
