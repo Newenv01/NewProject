@@ -69,7 +69,7 @@ pipeline{
         sshagent(["${Remote_ID}"]) {
             sh "echo ${RmtSrvIP} and ${Remote_ID}"
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.8.211:/home/ec2-user/testdir/
             """
         }
       }
