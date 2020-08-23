@@ -20,7 +20,7 @@ pipeline{
       //when { branch 'master' }
       steps{
            script {
-             sh "chmod +x -R ${env.WORKSPACE} and ${Remote_ID}, ${RmtSrvIP}" 
+             sh "chmod +x -R ${env.WORKSPACE}" 
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/home/testenv/'){    
@@ -82,11 +82,13 @@ def deployevn() {
       if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
       {
            def RemoteID="RemoteID01"
+           sh "echo ${RemoteID}"
            return RemoteID
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
            def RemoteID="RemoteMAc"
+           sh "echo ${RemoteID}"
            return RemoteID
       }
     }
@@ -97,11 +99,13 @@ def deploySrvIP() {
       if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
       {
            def RmtSrvIP="172.31.8.211"
+           sh "echo ${RmtSrvIP}"
            return RmtSrvIP
       }
       else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
       {
            def RmtSrvIP="172.31.2.140"
+           sh "echo ${RmtSrvIP}"
            return RmtSrvIP
       }
     }
