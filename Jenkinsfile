@@ -17,6 +17,7 @@ pipeline{
       }
     }
     stage('Build'){
+      when { branch: 'Dev' }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -44,6 +45,7 @@ pipeline{
        }
     }
     stage('Upload'){
+      when { branch: 'Dev' }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         script {
@@ -104,5 +106,3 @@ def deploySrvIP() {
       }
     }
 }
-
-
