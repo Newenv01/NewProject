@@ -15,7 +15,7 @@ pipeline{
     //stage('SCM CheckOut'){
       //when { branch 'Dev' }
       //steps{
-           checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
+           //checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
      // }
    // }
     stage('Build'){
