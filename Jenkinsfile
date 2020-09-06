@@ -5,10 +5,10 @@ pipeline{
   //options { timestamps() }
   agent any
 
-  /*environment {
-    //depenv = "${env.JOB_NAME_BASENAME}"
+  environment {
+    depenv = "${env.JOB_NAME}".split('_').last()
     Remote_ID = deployevn(depenv)
-  }*/
+  }
   
   stages{
     stage('SCM CheckOut'){
@@ -79,12 +79,14 @@ pipeline{
 
 def deployevn() {
   script {
-      if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
+      //if ( env.BRANCH_NAME.contain == "master" || env.BRANCHNAME.contain == "Master" || env.BRANCHNAME.contain == "MASTER" )
+      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       {
            def RemoteID="RemoteMAc"
            return RemoteID
       }
-      else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
+      //else if ( env.BRANCH_NAME.contain == "dev" || env.BRANCHNAME.contain == "Dev" || env.BRANCHNAME.contain == "DEV" )
+      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       {
            def RemoteID="RemoteID01"
            return RemoteID
