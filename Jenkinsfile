@@ -6,7 +6,7 @@ pipeline{
   agent any
 
   environment {
-    def (param1, depenv) = "${env.JOB_NAME_BASENAME}"
+    depenv = "${env.JOB_NAME_BASENAME}"
     Remote_ID = deployevn(depenv)
   }
   
