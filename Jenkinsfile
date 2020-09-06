@@ -8,6 +8,7 @@ pipeline{
   environment {
     depenv = "${env.JOB_NAME}".split('_').last()
     Remote_ID = deployevn(depenv)
+    SRV_Name = server_name(depenv)
   }
   
   stages{
@@ -69,7 +70,7 @@ pipeline{
         sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.8.211:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
             """
         }
       }
@@ -79,13 +80,11 @@ pipeline{
 
 def deployevn(depenv){
    script{
-      //if ( env.BRANCH_NAME.contain == "master" || env.BRANCHNAME.contain == "Master" || env.BRANCHNAME.contain == "MASTER" )
       if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       {
            def RemoteID="RemoteMAc"
            return RemoteID
       }
-      //else if ( env.BRANCH_NAME.contain == "dev" || env.BRANCHNAME.contain == "Dev" || env.BRANCHNAME.contain == "DEV" )
       else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       {
            def RemoteID="RemoteID01"
@@ -93,3 +92,19 @@ def deployevn(depenv){
       }
     }
 }
+
+def server_name(depenv){
+	script{
+	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
+      	      {
+           	def RemoteSRV="172.31.2.140"
+           	return RemoteSRV
+              }
+      	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
+      	      {
+           	def RemoteSRV="172.31.8.211"
+           	return RemoteSRV
+      	      }
+    	}
+}
+
