@@ -18,7 +18,7 @@ pipeline{
       }
     }
     stage('Build'){
-      when { branch 'master' }
+      when { branch 'Dev' }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
