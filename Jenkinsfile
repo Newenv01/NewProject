@@ -7,18 +7,19 @@ pipeline{
 
   environment {
     depenv = "${env.JOB_NAME}".split('_').last()
-    Remote_ID = deployevn(depenv)
+    echo "test : ${depenv}"
+    //Remote_ID = deployevn(depenv)
   }
   
   stages{
     stage('SCM CheckOut'){
-      when { branch 'Dev' }
+      //when { branch 'Dev' }
       steps{
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
     }
     stage('Build'){
-      when { branch 'Dev' }
+      //when { branch 'Dev' }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
