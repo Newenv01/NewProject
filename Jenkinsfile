@@ -6,7 +6,8 @@ pipeline{
   agent any
 
   environment {
-    Remote_ID = deployevn()
+    def (param1, depenv) = "${env.JOB_NAME}.split(_)"
+    Remote_ID = deployevn(depenv)
   }
   
   stages{
@@ -65,7 +66,7 @@ pipeline{
         //sshagent(['RemoteMac']) {
         sshagent(["${Remote_ID}"]) {  
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.2.140:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             """
         }
       }
