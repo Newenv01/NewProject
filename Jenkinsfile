@@ -78,7 +78,7 @@ pipeline{
 }
 
 def deployevn() {
-  script {
+  //script {
       //if ( env.BRANCH_NAME.contain == "master" || env.BRANCHNAME.contain == "Master" || env.BRANCHNAME.contain == "MASTER" )
       if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       {
@@ -91,5 +91,5 @@ def deployevn() {
            def RemoteID="RemoteID01"
            return RemoteID
       }
-    }
+    //}
 }
