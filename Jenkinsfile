@@ -5,10 +5,10 @@ pipeline{
   //options { timestamps() }
   agent any
 
-  environment {
-    depenv = "${env.JOB_NAME_BASENAME}"
+  /*environment {
+    //depenv = "${env.JOB_NAME_BASENAME}"
     Remote_ID = deployevn(depenv)
-  }
+  }*/
   
   stages{
     stage('SCM CheckOut'){
@@ -63,10 +63,11 @@ pipeline{
     }
     stage('Deploy Files to Remote'){
       steps{
-        //sshagent(['RemoteMac']) {
-        sshagent(["${Remote_ID}"]) {  
+        sshagent(['RemoteMac']) {
+        //sshagent(["${Remote_ID}"]) {  
+                 //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.8.211:/home/ec2-user/testdir/
             """
         }
       }
