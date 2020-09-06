@@ -7,7 +7,6 @@ pipeline{
 
   environment {
     depenv = "${env.JOB_NAME}".split('_').last()
-    echo "test : ${depenv}"
     //Remote_ID = deployevn(depenv)
   }
   
@@ -15,6 +14,7 @@ pipeline{
     stage('SCM CheckOut'){
       //when { branch 'Dev' }
       steps{
+    echo "test : ${depenv}"
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
     }
