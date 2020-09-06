@@ -77,8 +77,8 @@ pipeline{
   }
 }
 
-def deployevn(){
-   steps{
+def deployevn(depenv){
+   script{
       //if ( env.BRANCH_NAME.contain == "master" || env.BRANCHNAME.contain == "Master" || env.BRANCHNAME.contain == "MASTER" )
       if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       {
