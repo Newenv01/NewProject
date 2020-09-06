@@ -6,21 +6,23 @@ pipeline{
   agent any
 
   environment {
-    Remote_ID = deployevn()
-    RmtSrvIP = deploySrvIP()
+    depenv = "${env.JOB_NAME}".split('_').last()
+    Remote_ID = deployevn(depenv)
+    SRV_Name = server_name(depenv)
   }
   
   stages{
     stage('SCM CheckOut'){
+      //when { branch 'Dev' }
       steps{
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
     }
     stage('Build'){
-      //when { branch 'master' }
+      //when { branch 'Dev' }
       steps{
            script {
-             sh "chmod +x -R ${env.WORKSPACE}" 
+                  sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/home/testenv/'){    
@@ -45,7 +47,6 @@ pipeline{
        }
     }
     stage('Upload'){
-      //when { branch 'Dev' }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         script {
@@ -65,11 +66,11 @@ pipeline{
     }
     stage('Deploy Files to Remote'){
       steps{
-        sshagent(['RemoteMac']) {
-        //sshagent(["${Remote_ID}"]) {
-            sh "echo ${RmtSrvIP} and ${Remote_ID}"
+        //sshagent(['RemoteMac']) {
+        sshagent(["${Remote_ID}"]) {  
+                 //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@172.31.8.211:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
             """
         }
       }
@@ -77,34 +78,33 @@ pipeline{
   }
 }
 
-def deployevn() {
-  script {
-      if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
-      {
-           def RemoteID="RemoteID01"
-           echo "test RemoteID"
-           return RemoteID
-      }
-      else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
+def deployevn(depenv){
+   script{
+      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       {
            def RemoteID="RemoteMAc"
-           echo "test RemoteID"
+           return RemoteID
+      }
+      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
+      {
+           def RemoteID="RemoteID01"
            return RemoteID
       }
     }
 }
 
-def deploySrvIP() {
-  script {
-      if ( env.BRANCH_NAME == "master" || env.BRANCHNAME == "Master" || env.BRANCHNAME == "MASTER" )
-      {
-           def RmtSrvIP="172.31.8.211"
-           return RmtSrvIP
-      }
-      else if ( env.BRANCH_NAME == "dev" || env.BRANCHNAME == "Dev" || env.BRANCHNAME == "DEV" )
-      {
-           def RmtSrvIP="172.31.2.140"
-            return RmtSrvIP
-      }
-    }
+def server_name(depenv){
+	script{
+	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
+      	      {
+           	def RemoteSRV="172.31.2.140"
+           	return RemoteSRV
+              }
+      	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
+      	      {
+           	def RemoteSRV="172.31.8.211"
+           	return RemoteSRV
+      	      }
+    	}
 }
+
