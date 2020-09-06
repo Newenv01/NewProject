@@ -7,14 +7,13 @@ pipeline{
 
   environment {
     depenv = "${env.JOB_NAME}".split('_').last()
-    //Remote_ID = deployevn(depenv)
+    Remote_ID = deployevn(depenv)
   }
   
   stages{
     stage('SCM CheckOut'){
       //when { branch 'Dev' }
       steps{
-    echo "test : ${depenv}"
            checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Newenv01/NewProject.git']]])
       }
     }
@@ -79,7 +78,7 @@ pipeline{
 }
 
 def deployevn() {
-  //script {
+   steps{
       //if ( env.BRANCH_NAME.contain == "master" || env.BRANCHNAME.contain == "Master" || env.BRANCHNAME.contain == "MASTER" )
       if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       {
@@ -92,5 +91,5 @@ def deployevn() {
            def RemoteID="RemoteID01"
            return RemoteID
       }
-    //}
+    }
 }
