@@ -13,7 +13,7 @@ pipeline{
   
   stages{
     stage('Build'){
-      when {branch comparator: 'GLOB', pattern: 'Dev'}
+      when { environment name: 'depenv', value: 'Dev' }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
