@@ -22,7 +22,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-                    sh "echo ${depenv}"
+                    sh "echo ${depenv}testing"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
                     sh "/usr/bin/gzip -f ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
