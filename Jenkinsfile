@@ -13,8 +13,8 @@ pipeline{
   
   stages{
     stage('Build'){
-      when { not { environment name: 'Remote_ID', value 'master'} }
       steps{
+      when { not { environment name: 'Remote_ID', value 'Dev'} }
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
