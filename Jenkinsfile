@@ -42,7 +42,7 @@ pipeline{
        }
     }
     stage('Upload'){
-      when { not { environment name: 'depenv', value: 'Dev' } }
+      when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
@@ -62,6 +62,7 @@ pipeline{
       }
     }
     stage('Deploy Files to Remote'){
+      when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	sh "echo ${depenv}"
         sshagent(["${Remote_ID}"]) {  
