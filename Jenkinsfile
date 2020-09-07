@@ -42,7 +42,7 @@ pipeline{
        }
     }
     stage('Upload'){
-      when { not {branch comparator: 'REGEXP', pattern: 'Dev'} }
+      when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
