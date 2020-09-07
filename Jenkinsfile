@@ -13,9 +13,9 @@ pipeline{
   
   stages{
     stage('Build'){
-      steps{
       when { not { environment name: 'Remote_ID', value 'Dev'} }
-           script {
+      steps{
+           //script {
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
@@ -37,14 +37,14 @@ pipeline{
                            subject: "FAILED - Job '${JOB_NAME}' '${BUILD_NUMBER}'",
                            body: "Dear Team,\n\n Please go to ${BUILD_URL} and verify the build.\n\nRegards\nSupport Team."
                   }
-           } 
+           //}
        }
     }
     stage('Upload'){
-      steps{
       when { environment name: 'Remote_ID', value 'Dev' }
+      steps{
         sh "echo \"${env.BUILD_TAG}\""
-        script {
+        //script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${env.BRANCH_NAME}"
@@ -56,7 +56,7 @@ pipeline{
           //buildInfo.number = "LCAD_Release_Number"
           server.upload spec: uploadSpec, buildInfo: buildInfo
           server.publishBuildInfo buildInfo
-        }
+        //}
       }
     }
     stage('Deploy Files to Remote'){
