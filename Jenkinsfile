@@ -22,6 +22,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
+                    sh "echo ${depenv}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
                     sh "/usr/bin/gzip -f ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
@@ -44,6 +45,7 @@ pipeline{
       when { not {branch comparator: 'REGEXP', pattern: 'Dev'} }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
+        sh "echo ${depenv}"
         script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
@@ -61,7 +63,7 @@ pipeline{
     }
     stage('Deploy Files to Remote'){
       steps{
-        //sshagent(['RemoteMac']) {
+	sh "echo ${depenv}"
         sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
