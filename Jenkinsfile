@@ -95,6 +95,7 @@ def server_name(depenv){
 	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	      {
            	def RemoteSRV="172.31.2.140"
+		echo "${depenv} testing"
            	return RemoteSRV
               }
       	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
