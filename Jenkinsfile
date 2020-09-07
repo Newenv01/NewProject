@@ -41,8 +41,8 @@ pipeline{
        }
     }
     stage('Upload'){
-      when { environment name: 'Remote_ID', value 'Dev' }
       steps{
+      when { environment name: 'Remote_ID', value 'Dev' }
         sh "echo \"${env.BUILD_TAG}\""
         script {
           buildName = 'LCADPB'
