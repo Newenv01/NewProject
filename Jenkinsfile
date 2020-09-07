@@ -13,7 +13,7 @@ pipeline{
   
   stages{
     stage('Build'){
-      //when { branch 'Dev' }
+      when { not { environment name: 'Remote_ID', value 'master'} }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -41,6 +41,7 @@ pipeline{
        }
     }
     stage('Upload'){
+      when { environment name: 'Remote_ID', value 'Dev' }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         script {
