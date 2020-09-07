@@ -13,7 +13,7 @@ pipeline{
   
   stages{
     stage('Build'){
-      when { branch comparator: 'EQUALS', pattern: 'Dev' }
+      when { branch comparator: 'REGEXP', pattern: 'Dev'}
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -41,7 +41,7 @@ pipeline{
        }
     }
     stage('Upload'){
-      when { not {branch comparator: 'EQUALS', pattern: 'Dev' } }
+      when { not {branch comparator: 'REGEXP', pattern: 'Dev'} }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         script {
