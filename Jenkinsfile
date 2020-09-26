@@ -50,9 +50,9 @@ pipeline{
         script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
-          buildEnvironment = "${env.BRANCH_NAME}"
+          buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-          def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/"}]}'
+          def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/", "props": "Environment=${depenv}; Version=latest"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
@@ -62,6 +62,28 @@ pipeline{
         }
       }
     }
+    /*stage('Upload - Prod'){
+	    when { not {environment name: 'depenv', value: 'Dev' }}
+      steps{
+        sh "echo \"${env.BUILD_TAG}\""
+        sh "echo ${depenv}"
+        script {
+          buildName = 'LCADPB'
+          buildNumber = "${env.BUILD_NUMBER}"
+          buildEnvironment = "${depenv}"
+          def server = Artifactory.server "JfrogServer"
+		def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/",  "props": "Environment=${depenv}; Version=latest"}]}'
+
+          def buildInfo = Artifactory.newBuildInfo()
+          buildInfo.name = buildName + '-' + buildEnvironment
+          //buildInfo.number = "LCAD_Release_Number"
+          server.download spec: uploadSpec, buildInfo: buildInfo
+          server.publishBuildInfo buildInfo
+        }
+      }
+    }*/
+	  
+	  
     stage('Deploy Files to Remote'){
       when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
