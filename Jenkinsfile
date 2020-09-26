@@ -6,9 +6,11 @@ pipeline{
   agent any
 
   environment {
-    depenv = "${env.JOB_NAME}".split('_').last()
-    Remote_ID = deployevn(depenv)
-    SRV_Name = server_name(depenv)
+    //depenv = "${env.JOB_NAME}".split('-').last()
+    depenv = deployment()
+    (Remote_ID,SRV_Name,Dest_Path) = server_name(depenv).split('|')
+    //Remote_ID = deployevn(depenv)
+    //SRV_Name = server_name(depenv)
   }
   
   stages{
@@ -76,6 +78,16 @@ pipeline{
   }
 }
 
+def deployment()}
+   script{
+	   if (env.JOB_BASE_NAME.endWith('-Dev')){
+		   return "Dev"
+	   } else if (env.JOB_BASE_NAME.endWith('-Prod')){
+		   return "Master"
+	   }
+   }
+}
+
 def deployevn(depenv){
    script{
       if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
@@ -95,13 +107,13 @@ def server_name(depenv){
 	script{
 	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	      {
-           	def RemoteSRV="172.31.2.140"
-           	return RemoteSRV
+           	return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
+           	//return RemoteSRV
               }
       	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	      {
-           	def RemoteSRV="172.31.8.211"
-           	return RemoteSRV
+           	return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
+           	//return RemoteSRV
       	      }
     	}
 }
