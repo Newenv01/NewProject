@@ -79,9 +79,9 @@ pipeline{
 
 def deployment(){
    script{
-	   if (env.JOB_BASE_NAME.endWith('-Dev')){
+	   if (env.JOB_BASE_NAME.endsWith('-Dev')){
 		   return "Dev"
-	   } else if (env.JOB_BASE_NAME.endWith('-Prod')){
+	   } else if (env.JOB_BASE_NAME.endsWith('-Prod')){
 		   return "Master"
 	   }
    }
