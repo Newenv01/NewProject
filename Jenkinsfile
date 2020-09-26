@@ -78,7 +78,7 @@ pipeline{
   }
 }
 
-def deployment()}
+def deployment(){
    script{
 	   if (env.JOB_BASE_NAME.endWith('-Dev')){
 		   return "Dev"
