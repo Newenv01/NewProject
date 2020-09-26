@@ -8,7 +8,10 @@ pipeline{
   environment {
     //depenv = "${env.JOB_NAME}".split('-').last()
     depenv = deployment()
-    (Remote_ID,SRV_Name,Dest_Path) = server_name(depenv).split('|')
+    parameters = server_name(depenv)
+	  script {
+                  (Remote_ID,SRV_Name,Dest_Path) = parameters.split('|')
+	  }
     //Remote_ID = deployevn(depenv)
     //SRV_Name = server_name(depenv)
   }
