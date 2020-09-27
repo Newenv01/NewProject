@@ -1,4 +1,4 @@
-currentBuild.displayName = "LCADPIP-#"+currentBuild.changeSets
+currentBuild.displayName = "LCADPIP-#"+currentBuild.commitId
 
 pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
