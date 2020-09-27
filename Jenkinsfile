@@ -10,6 +10,7 @@ pipeline{
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
+    build_id = buildID()
   }
  
   stages{
@@ -23,7 +24,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-                    sh "echo ${depenv}testing"
+	            sh "echo ${depenv} testing ${build_id}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
                     sh "/usr/bin/gzip -f ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
@@ -139,3 +140,9 @@ def server_name(depenv){
     	}
 }
 
+def buildID(){
+	script{
+	     return sh(returnStdout: true, script: 'git rev-parse HEAD')
+	}
+}	
+}
