@@ -66,7 +66,7 @@ pipeline{
     stage('Download - Prod'){
 	    when { not {environment name: 'depenv', value: 'Dev' }}
       steps{
-	script{
+	/*script{
               RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
                               choice(name: 'RELEASE_TYPE', choices: 
@@ -76,7 +76,7 @@ pipeline{
                               VERSION, description: '''Edit release name please!!''',  
                               trim: false)
                               ]
-        }
+        }*/
         sh "echo ${depenv}"
 	      sh "mkdir -p ${WORKSPACE}/Download"
         script {
