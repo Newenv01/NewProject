@@ -13,13 +13,6 @@ pipeline{
   }
  
   stages{
-     stage{
-	   steps{
-	      scmVars = git branch: env.BRANCH_NAME, url: 'https://github.com/Newenv01/NewProject.git'
-              commitHash = scmVars.GIT_COMMIT
-	   }
-      }
-  
       stage('Build'){
       when { environment name: 'depenv', value: 'Dev' }
       steps{
