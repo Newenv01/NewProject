@@ -112,7 +112,7 @@ pipeline{
         }
       }
     }
-  //}
+  }
 }
 
 def deployment(){
