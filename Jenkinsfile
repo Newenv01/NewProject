@@ -43,6 +43,7 @@ pipeline{
            }
        }
     }
+
     stage('Upload'){
       when { environment name: 'depenv', value: 'Dev' } 
       steps{
@@ -63,10 +64,11 @@ pipeline{
         }
       }
     }
+
     stage('Download - Prod'){
-	    when { not {environment name: 'depenv', value: 'Dev' }}
+      when { not {environment name: 'depenv', value: 'Dev' }}
       steps{
-	/*script{
+	script{
               RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
                               choice(name: 'RELEASE_TYPE', choices: 
@@ -76,15 +78,15 @@ pipeline{
                               VERSION, description: '''Edit release name please!!''',  
                               trim: false)
                               ]
-        }*/
-        sh "echo ${depenv}"
-	      sh "mkdir -p ${WORKSPACE}/Download"
+        }
+	sh "echo ${depenv}"
+	sh "mkdir -p ${WORKSPACE}/Download"
         script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-		def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${RELEASE_ENV['VERSION']}"}]}'
+          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${RELEASE_ENV['VERSION']}"}]}'
 
           def buildInfo = server.download(downloadSpec)
           //buildInfo.name = buildName + '-' + buildEnvironment
@@ -110,7 +112,7 @@ pipeline{
         }
       }
     }
-  }
+  //}
 }
 
 def deployment(){
