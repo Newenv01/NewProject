@@ -94,7 +94,7 @@ pipeline{
         sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
+                 sudo scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
             """
         }
       }
@@ -132,7 +132,7 @@ def server_name(depenv){
 	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	      {
            	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
-           	return "172.31.8.211"
+           	return "172.31.2.140"
               }
       	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	      {
