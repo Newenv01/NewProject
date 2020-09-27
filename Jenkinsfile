@@ -4,7 +4,11 @@ pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
   //options { timestamps() }
   agent any
-
+	
+  withCheckout(scm) {
+     echo "GIT_COMMIT is ${env.GIT_COMMIT}"
+  }
+	
   environment {
     //depenv = "${env.JOB_NAME}".split('-').last()
     depenv = deployment()
