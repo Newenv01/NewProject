@@ -79,7 +79,7 @@ pipeline{
           //buildInfo.name = buildName + '-' + buildEnvironment
           //buildInfo.number = "LCAD_Release_Number"
 	  echo "retriving data"
- 	  env.LAST_BUILD_NAME=buildInfo.build.number
+ 	  //env.LAST_BUILD_NAME=buildInfo.build.number
           //server.download spec: downloadSpec, buildInfo: buildInfo
           //server.publishBuildInfo buildInfo
         }
