@@ -141,8 +141,7 @@ def server_name(depenv){
 }
 
 def buildID(){
-	script{
-	     return sh(returnStdout: true, script: 'git rev-parse HEAD')
-	}
-}	
+    script{
+      return sh(returnStdout: true, script: 'git rev-parse HEAD')
+    }
 }
