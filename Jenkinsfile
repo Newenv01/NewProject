@@ -1,4 +1,4 @@
-currentBuild.displayName = "LCADPIP-#"+currentBuild.commitId
+currentBuild.displayName = "LCADPIP-#"+currentBuild.number
 
 pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
@@ -85,7 +85,7 @@ pipeline{
 	  
 	  
     stage('Deploy Files to Remote'){
-      when { not { environment name: 'depenv', value: 'Dev' } }
+      //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	sh "echo ${depenv}"
         sshagent(["${Remote_ID}"]) {  
