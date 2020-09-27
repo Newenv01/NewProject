@@ -26,6 +26,7 @@ pipeline{
                     sh "echo ${env.WORKSPACE}"
 	            sh "echo ${depenv} testing ${build_id}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
+	            sh "/usr/bin/rm -fr *.gz"
                     sh "/usr/bin/gzip -f -S .`date +%Y%m%d_%H%M`.gz ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
@@ -54,7 +55,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-          def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/", "props": "version=${build\_id}"}]}'
+          def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
