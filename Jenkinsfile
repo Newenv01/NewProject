@@ -1,4 +1,4 @@
-currentBuild.displayName = "LCADPIP-#"+currentBuild.number
+currentBuild.displayName = "LCADPIP-#"+currentBuild.number+currentBuild.changeSets
 
 pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
