@@ -4,20 +4,23 @@ pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
   //options { timestamps() }
   agent any
-	
-  withCheckout(scm) {
-     echo "GIT_COMMIT is ${env.GIT_COMMIT}"
-  }
-	
+
   environment {
     //depenv = "${env.JOB_NAME}".split('-').last()
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
   }
-  
+ 
   stages{
-    stage('Build'){
+     stage{
+	   steps{
+	      scmVars = git branch: env.BRANCH_NAME, url: 'https://github.com/Newenv01/NewProject.git'
+              commitHash = scmVars.GIT_COMMIT
+	   }
+      }
+  
+      stage('Build'){
       when { environment name: 'depenv', value: 'Dev' }
       steps{
            script {
