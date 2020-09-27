@@ -67,8 +67,7 @@ pipeline{
 	    when { not {environment name: 'depenv', value: 'Dev' }}
       steps{
 	script{
-              RELEASE_ENV = input message: 'User input 
-              required', ok: 'Ok to go?!',
+              RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
                               choice(name: 'RELEASE_TYPE', choices: 
                               'Artifactory\nClearCaseAndArtifactory\nAbort', 
