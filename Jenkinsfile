@@ -26,7 +26,7 @@ pipeline{
                     sh "echo ${env.WORKSPACE}"
 	            sh "echo ${depenv} testing ${build_id}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
-                    sh "/usr/bin/gzip -f ${env.WORKSPACE}/*.sh"
+                    sh "/usr/bin/gzip -f -S .`date +%Y%m%d_%H%M`.gz ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
@@ -94,7 +94,7 @@ pipeline{
         sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 sudo scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
             """
         }
       }
