@@ -84,7 +84,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${RELEASE_ENV['VERSION']}"}]}'
+          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=d56231275a51908867856ea9e8bed0a45c48dbec"}]}'
 
           def buildInfo = server.download(downloadSpec)
           //buildInfo.name = buildName + '-' + buildEnvironment
