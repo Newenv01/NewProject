@@ -10,7 +10,8 @@ pipeline{
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    buildid = buildID()
+    //buildid = buildID()
+    buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
   }
  
   stages{
@@ -51,7 +52,6 @@ pipeline{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
         script {
-	  buildid = buildid.replaceAll(~/\n/, "")
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
