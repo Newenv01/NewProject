@@ -10,7 +10,8 @@ pipeline{
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    buildid = buildID()
+    //buildid = buildID()
+    buildid = "1cd57700cd3de34b2c2988b54a3a7a87abc4c0e4"
   }
  
   stages{
