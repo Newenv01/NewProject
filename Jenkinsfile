@@ -74,7 +74,7 @@ pipeline{
               RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
                               choice(name: 'RELEASE_TYPE', choices: 'Artifactory\\nClearCaseAndArtifactory\\nAbort', description: 'What is the release scope?'),
-                              string(name: 'VERSION', defaultValue: VERSION, description: '''Edit release name please!!''',  
+                              string(name: 'VERSION', defaultValue: 'VERSION', description: '''Edit release name please!!''',  
                               trim: false)
                               ]
         }
