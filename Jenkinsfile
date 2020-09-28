@@ -10,7 +10,7 @@ pipeline{
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    build_id = buildID()
+    buildid = buildID()
   }
  
   stages{
@@ -24,7 +24,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-	            sh "echo ${depenv} testing ${build_id}"
+	            sh "echo ${depenv} testing ${buildid}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
                     sh "/usr/bin/gzip -f -S .`date +%Y%m%d_%H%M`.gz ${env.WORKSPACE}/*.sh"
@@ -55,7 +55,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-		def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/", "props": "version=${build_id}"}]}'
+		def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/", "props": "version=${buildid}"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
