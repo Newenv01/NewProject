@@ -10,8 +10,8 @@ pipeline{
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    //buildid = buildID()
-    buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
+    buildid = buildID()
+    //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
   }
  
   stages{
@@ -74,7 +74,7 @@ pipeline{
               RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
                               choice(name: 'RELEASE_TYPE', choices: 'Artifactory\nClearCaseAndArtifactory\nAbort', description: 'What is the release scope?'),
-                              string(name: 'VERSION', defaultValue: 'd56231275a51908867856ea9e8bed0a45c48dbec', description: '''Edit release name please!!''', trim: false)
+			  string(name: 'VERSION', defaultValue: '${buildid}', description: '''Edit release name please!!''', trim: false)
                               ]
         }
 	sh "echo ${depenv}"
@@ -84,7 +84,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=d56231275a51908867856ea9e8bed0a45c48dbec"}]}'
+          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${buildid}"}]}'
 
           def buildInfo = server.download(downloadSpec)
           //buildInfo.name = buildName + '-' + buildEnvironment
@@ -155,7 +155,7 @@ def server_name(depenv){
 
 def buildID(){
     script{
-      return sh(returnStdout: true, script: 'git rev-parse HEAD')
+      return sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     }
 }
 
