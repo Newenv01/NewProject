@@ -46,7 +46,7 @@ pipeline{
        }
     }
 
-    stage('Upload'){
+    /*stage('Upload'){
       when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
@@ -65,7 +65,7 @@ pipeline{
           server.publishBuildInfo buildInfo
         }
       }
-    }
+    }*/
 
     stage('Download - Prod'){
       when { not {environment name: 'depenv', value: 'Dev' }}
