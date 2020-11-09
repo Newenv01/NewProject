@@ -46,7 +46,7 @@ pipeline{
        }
     }
 
-    /*stage('Upload'){
+    stage('Upload'){
       when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
@@ -65,7 +65,7 @@ pipeline{
           server.publishBuildInfo buildInfo
         }
       }
-    }*/
+    }
 
     stage('Download - Prod'){
       when { not {environment name: 'depenv', value: 'Dev' }}
@@ -80,15 +80,15 @@ pipeline{
 	sh "echo ${depenv}"
 	sh "mkdir -p ${WORKSPACE}/Download"
         script {
-          //buildName = 'LCADPB'
-          //buildNumber = "${env.BUILD_NUMBER}"
-          //buildEnvironment = "${depenv}"
-          //def server = Artifactory.server "JfrogServer"
-          //def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${buildid}"}]}'
+          buildName = 'LCADPB'
+          buildNumber = "${env.BUILD_NUMBER}"
+          buildEnvironment = "${depenv}"
+          def server = Artifactory.server "JfrogServer"
+          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${buildid}"}]}'
 
-          //def buildInfo = server.download(downloadSpec)
-          //buildInfo.name = buildName + '-' + buildEnvironment
-          //buildInfo.number = "LCAD_Release_Number"
+          def buildInfo = server.download(downloadSpec)
+          buildInfo.name = buildName + '-' + buildEnvironment
+          buildInfo.number = "LCAD_Release_Number"
 	  echo "retriving data"
 	  //env.LAST_BUILD_NAME=buildInfo.build.number
           //server.download spec: downloadSpec, buildInfo: buildInfo
