@@ -46,7 +46,7 @@ pipeline{
        }
     }
 
-    stage('Upload'){
+    /*stage('Upload'){
       when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
@@ -65,7 +65,7 @@ pipeline{
           server.publishBuildInfo buildInfo
         }
       }
-    }
+    }*/
 
     stage('Download - Prod'){
       when { not {environment name: 'depenv', value: 'Dev' }}
@@ -73,13 +73,13 @@ pipeline{
 	script{
               RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
-                              choice(name: 'RELEASE_TYPE', choices: 'Artifactory\nClearCaseAndArtifactory\nAbort', description: 'What is the release scope?'),
-			  string(name: 'VERSION', defaultValue: '${buildid}', description: '''Edit release name please!!''', trim: false)
+                                    choice(name: 'RELEASE_TYPE', choices: 'Artifactory\nClearCaseAndArtifactory\nAbort', description: 'What is the release scope?'),
+	 		            string(name: 'VERSION', defaultValue: '${buildid}', description: '''Edit release name please!!''', trim: false)
                               ]
         }
 	sh "echo ${depenv}"
 	sh "mkdir -p ${WORKSPACE}/Download"
-        script {
+        /*script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
@@ -93,7 +93,7 @@ pipeline{
  	  //env.LAST_BUILD_NAME=buildInfo.build.number
           //server.download spec: downloadSpec, buildInfo: buildInfo
           //server.publishBuildInfo buildInfo
-        }
+        }*/
       }
     }
 	  
