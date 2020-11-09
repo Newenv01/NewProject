@@ -12,6 +12,7 @@ pipeline{
     SRV_Name = server_name(depenv)
     buildid = buildID()
     //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
+    current_branch="git rev-parse --abbrev-ref HEAD"
   }
  
   stages{
@@ -20,6 +21,7 @@ pipeline{
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
+		  echo "current_branch testing"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/home/testenv/'){    
