@@ -12,7 +12,7 @@ pipeline{
     SRV_Name = server_name(depenv)
     buildid = buildID()
     //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
-    current_branch="git rev-parse --abbrev-ref HEAD"
+    current_branch=sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
   }
  
   stages{
