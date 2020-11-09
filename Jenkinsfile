@@ -73,31 +73,31 @@ pipeline{
 	script{
               RELEASE_ENV = input message: 'User input required', ok: 'Ok to go?!',
                   parameters: [
-                              choice(name: 'RELEASE_TYPE', choices: 'Artifactory\nClearCaseAndArtifactory\nAbort', description: 'What is the release scope?'),
-			  string(name: 'VERSION', defaultValue: '${buildid}', description: '''Edit release name please!!''', trim: false)
+                                  choice(name: 'RELEASE_TYPE', choices: 'Artifactory\nClearCaseAndArtifactory\nAbort', description: 'What is the release scope?'),
+	       		          string(name: 'VERSION', defaultValue: '${buildid}', description: '''Edit release name please!!''', trim: false)
                               ]
         }
 	sh "echo ${depenv}"
 	sh "mkdir -p ${WORKSPACE}/Download"
         script {
-          buildName = 'LCADPB'
-          buildNumber = "${env.BUILD_NUMBER}"
-          buildEnvironment = "${depenv}"
-          def server = Artifactory.server "JfrogServer"
-          def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${buildid}"}]}'
+          //buildName = 'LCADPB'
+          //buildNumber = "${env.BUILD_NUMBER}"
+          //buildEnvironment = "${depenv}"
+          //def server = Artifactory.server "JfrogServer"
+          //def downloadSpec = '{"files": [{"pattern": "LCADPB/", "target": "${WORKSPACE}/Download/",  "props": "version=${buildid}"}]}'
 
-          def buildInfo = server.download(downloadSpec)
+          //def buildInfo = server.download(downloadSpec)
           //buildInfo.name = buildName + '-' + buildEnvironment
           //buildInfo.number = "LCAD_Release_Number"
 	  echo "retriving data"
- 	  //env.LAST_BUILD_NAME=buildInfo.build.number
+	  //env.LAST_BUILD_NAME=buildInfo.build.number
           //server.download spec: downloadSpec, buildInfo: buildInfo
           //server.publishBuildInfo buildInfo
+	  
         }
       }
     }
-	  
-	  
+ 
     stage('Deploy Files to Remote'){
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
