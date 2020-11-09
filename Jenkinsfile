@@ -21,7 +21,7 @@ pipeline{
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
-		  echo "current_branch testing"
+		   echo "${current_branch} testing"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
                     //dir('/home/testenv/'){    
