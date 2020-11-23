@@ -11,6 +11,7 @@ pipeline{
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
     buildid = buildID()
+    buildEnv = buildEnv()
     //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
   }
  
@@ -156,6 +157,12 @@ def server_name(depenv){
 def buildID(){
     script{
       return sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    }
+}
+
+def buildEnv(){
+    script{
+      return sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
     }
 }
 
