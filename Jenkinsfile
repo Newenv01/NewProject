@@ -11,7 +11,7 @@ pipeline{
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
     buildid = buildID()
-    buildEnv = buildEnv()
+    buildEnv01 = buildEnv()
     //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
   }
  
@@ -29,7 +29,7 @@ pipeline{
 	            sh "echo ${depenv} testing ${buildid}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
-                    sh "/usr/bin/gzip -f -S .`date +%Y%m%d_%H%M`.gz ${env.WORKSPACE}/*.sh"
+		    sh "/usr/bin/gzip -f -S .`date +%Y%m%d_%H%M`.${buildEnv01}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
