@@ -103,10 +103,10 @@ pipeline{
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	sh "echo ${depenv}"
-        sshagent(["${NewServer01}"]) {  
+        sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/newenv01test01/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz newenv01@${SRV_Name}:/home/newenv01/test01/
             """
         }
       }
@@ -133,7 +133,7 @@ def deployevn(depenv){
       }
       else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       {
-           def RemoteID="RemoteID01"
+           def RemoteID="NewServer01"
            return RemoteID
       }
     }
@@ -144,12 +144,12 @@ def server_name(depenv){
 	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	      {
            	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
-           	return "172.31.2.140"
+           	return "34.220.3.13"
               }
       	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	      {
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "172.31.8.211"
+           	return "54.69.160.211"
       	      }
     	}
 }
