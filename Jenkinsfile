@@ -47,7 +47,7 @@ pipeline{
        }
     }
 
-    stage('Upload'){
+    /*stage('Upload'){
       when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
@@ -66,9 +66,9 @@ pipeline{
           server.publishBuildInfo buildInfo
         }
       }
-    }
+    }*/
 
-    stage('Download - Prod'){
+    /*stage('Download - Prod'){
       when { not {environment name: 'depenv', value: 'Dev' }}
       steps{
 	script{
@@ -97,16 +97,16 @@ pipeline{
 	  
         }
       }
-    }
+    }*/
  
     stage('Deploy Files to Remote'){
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	sh "echo ${depenv}"
-        sshagent(["${Remote_ID}"]) {  
+        sshagent(["${NewServer01}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
             sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/ec2-user/testdir/
+                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${SRV_Name}:/home/newenv01test01/
             """
         }
       }
