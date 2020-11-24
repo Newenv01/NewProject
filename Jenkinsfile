@@ -109,7 +109,7 @@ pipeline{
                  sh """
 		 whoami 
 		 who am i
-                    scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv01@${SRV_Name}:/home/newenv01/test01
+                    scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv01@${SRV_Name}:/home/newenv01/test00
                  """
         }
       }
@@ -136,7 +136,8 @@ def deployevn(depenv){
       }
       else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       {
-           def RemoteID="NewSever02"
+           //def RemoteID="NewSever02"
+	   def RemoteID="NewSever00"
            return RemoteID
       }
     }
@@ -147,7 +148,8 @@ def server_name(depenv){
 	      if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	      {
            	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
-           	return "172.31.42.201"
+           	//return "172.31.42.201"
+		return "172.31.42.13"
               }
       	      else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	      {
