@@ -145,12 +145,12 @@ def server_name(depenv){
 	      if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	      {
            	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
-           	return "34.220.3.13"
+           	return "172.31.39.86"
               }
       	      else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	      {
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "54.69.160.211"
+           	return "172.31.42.201"
       	      }
     	}
 }
