@@ -109,7 +109,7 @@ pipeline{
                  sh """
 		 whoami 
 		 who am i
-                    scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz newenv02@${SRV_Name}:/home/newenv02/test02
+                    scp -o StrictHostKeyChecking=no -v -i ~/.ssh/id_rsa.pub ${env.WORKSPACE}/*.gz newenv02@${SRV_Name}:/home/newenv02/test02
                  """
         }
       }
