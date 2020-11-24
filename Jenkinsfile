@@ -107,7 +107,7 @@ pipeline{
 	      //sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
                  sh """
-                    scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz newenv02@${SRV_Name}:/home/newenv01/test01/
+                    scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz newenv02@${SRV_Name}:/home/newenv02/test02
                  """
         }
       }
