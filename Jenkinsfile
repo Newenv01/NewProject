@@ -103,11 +103,12 @@ pipeline{
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	sh "echo ${depenv}"
-        sshagent(["${Remote_ID}"]) {  
+	      script{
+	      //sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
-            sh """
-                 scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz newenv01@${SRV_Name}:/home/newenv01/test01/
-            """
+                 sh """
+                    scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz newenv01@${SRV_Name}:/home/newenv01/test01/
+                 """
         }
       }
     }
