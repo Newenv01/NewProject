@@ -47,7 +47,7 @@ pipeline{
        }
     }
 
-    /*stage('Upload'){
+    stage('Upload'){
       when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
@@ -57,7 +57,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "JfrogServer"
-		def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADPB/", "props": "version=${buildid}"}]}'
+		def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "version=${buildid}"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
@@ -66,7 +66,7 @@ pipeline{
           server.publishBuildInfo buildInfo
         }
       }
-    }*/
+    }
 
     /*stage('Download - Prod'){
       when { not {environment name: 'depenv', value: 'Dev' }}
