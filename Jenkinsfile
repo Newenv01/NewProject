@@ -30,7 +30,7 @@ pipeline{
 	            sh "echo ${depenv} testing ${buildid}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
-		    sh "/usr/bin/gzip -f -S .`date +%Y%m%d_%H%M`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
+		    sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
@@ -112,7 +112,10 @@ pipeline{
 		 whoami 
 		 echo ${USR_Name}
 		 echo ${SRV_Name}
-                 ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh*.${depenv}.*.gz\"\"
+		 for i in `ls -1 *.gz`
+		 do
+                      ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/${i}\"\"
+		 done
                  """
         }
       }
