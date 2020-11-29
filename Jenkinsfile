@@ -10,6 +10,7 @@ pipeline{
     depenv = deployment()
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
+    USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
     //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
@@ -106,10 +107,11 @@ pipeline{
 	      //script{
 	      sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
+		 //scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
                  sh """
 		 whoami 
-		 who am i
-                    scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
+		 cd /home/${USR_Name}/testdir/
+                 ssh ${USR_Name}@${SEV_Name} \"wget --user-name=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://34.217.53.156:8081/artifactory/LCADDEV/*.gz\"\"
                  """
         }
       }
@@ -123,7 +125,10 @@ def deployment(){
 		   return "Dev"
 	   } else if (env.JOB_BASE_NAME.endsWith('-Prod')){
 		   return "Master"
+	   } else if (env.JOB_BASE_NAME.endsWith('-UAT')){
+		   return "UAT"
 	   }
+
    }
 }
 
@@ -155,6 +160,32 @@ def server_name(depenv){
       	      {
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
            	return "172.31.39.86"
+      	      }
+	      else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
+      	      {
+           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
+           	return "172.31.42.201"
+      	      }
+    	}
+}
+
+def user_name(depenv){
+	script{
+	      if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
+      	      {
+           	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
+           	//return "172.31.42.201"
+		return "newenv01"
+              }
+      	      else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
+      	      {
+           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
+           	return "newenv02"
+      	      }
+	      else if (  depenv == "uat" || depenv == "Uat" || depenv == "UAT" )
+      	      {
+           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
+           	return "newenv00"
       	      }
     	}
 }
