@@ -110,7 +110,7 @@ pipeline{
 		 //scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
                  sh """
 		 whoami 
-		 cd /home/${USR_Name}/
+		 cd /home/${USR_Name}
                  ssh ${USR_Name}@${SRV_Name} \"wget --user-name=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://54.244.216.46:8081/artifactory/LCADDEV/*.gz\"\"
                  """
         }
