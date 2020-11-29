@@ -185,7 +185,7 @@ def user_name(depenv){
 	      else if (  depenv == "uat" || depenv == "Uat" || depenv == "UAT" )
       	      {
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "newenv00"
+           	return "newenv01"
       	      }
     	}
 }
