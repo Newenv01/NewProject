@@ -113,11 +113,8 @@ pipeline{
 		 cd ${env.WORKSPACE}
 		 echo ${USR_Name}
 		 echo ${SRV_Name}
-		 for i in `/usr/bin/ls -1 *.gz`
-		 do
-                      ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/${i}\"\"
-		 done
-                 """
+		 ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
+		 """
         }
       }
     }
