@@ -110,9 +110,10 @@ pipeline{
 		 //scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
                  sh """
 		 whoami 
+		 cd ${env.WORKSPACE}
 		 echo ${USR_Name}
 		 echo ${SRV_Name}
-		 for i in `ls -1 *.gz`
+		 for i in `/usr/bin/ls -1 *.gz`
 		 do
                       ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/${i}\"\"
 		 done
