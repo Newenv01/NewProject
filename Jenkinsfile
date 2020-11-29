@@ -111,7 +111,7 @@ pipeline{
                  sh """
 		 whoami 
 		 cd /home/${USR_Name}/testdir/
-                 ssh ${USR_Name}@${SEV_Name} \"wget --user-name=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://34.217.53.156:8081/artifactory/LCADDEV/*.gz\"\"
+                 ssh ${USR_Name}@${SRV_Name} \"wget --user-name=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://34.217.53.156:8081/artifactory/LCADDEV/*.gz\"\"
                  """
         }
       }
