@@ -27,6 +27,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
+	            sh "echo ${REPO_NAME}"
 	            sh "echo ${depenv} testing ${buildid}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
