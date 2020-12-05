@@ -19,7 +19,7 @@ pipeline{
  
   stages{
       stage('Build'){
-      when { environment name: 'depenv', value: 'QA' }
+      when { environment name: 'depenv', value: 'Dev' }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -50,7 +50,7 @@ pipeline{
     }
 
     stage('Upload'){
-      when { environment name: 'depenv', value: 'QA' } 
+      when { environment name: 'depenv', value: 'Dev' } 
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
