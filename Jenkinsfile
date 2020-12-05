@@ -8,7 +8,7 @@ pipeline{
   environment {
     //depenv = "${env.JOB_NAME}".split('-').last()
     //depenv = deployment()
-    depenv = "$BRANCH"
+    depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
     USR_Name = user_name(depenv)
