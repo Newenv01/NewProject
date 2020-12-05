@@ -28,12 +28,11 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-	                  sh "echo ${REPO_NAME}"
-		                sh "echo ${EnvironmentName}"
-	                  sh "echo ${depenv} testing ${buildid}"
+	            sh "echo ${EnvironmentName}"
+	            sh "echo ${depenv} testing ${buildid}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
-	                  sh "/usr/bin/rm -fr *.gz"
-		                sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
+	            sh "/usr/bin/rm -fr *.gz"
+		    sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
