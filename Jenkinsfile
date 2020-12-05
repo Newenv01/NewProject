@@ -58,7 +58,7 @@ pipeline{
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
-          def server = Artifactory.server "JFROG_SER"
+          def server = Artifactory.server "LCADD"
 		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "version=${buildid}, env=latest"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
