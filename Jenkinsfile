@@ -19,9 +19,10 @@ pipeline{
  
   stages{
       stage('Build'){
-	      when { { environment name: 'depenv', value: 'Dev' } OR {environment name: 'depenv', value: 'Dev1'} }
+	      when { expression { environment name: 'depenv', value: 'Dev' } || {environment name: 'depenv', value: 'Dev1'} }
       steps{
            script {
+		  GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
@@ -51,7 +52,7 @@ pipeline{
     }
 
     stage('Upload'){
-      when { { environment name: 'depenv', value: 'Dev' } OR { environment name: 'depenv', value: 'Dev1' } }
+      when { expression { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
