@@ -12,23 +12,16 @@ pipeline{
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
     USR_Name = user_name(depenv)
-    buildid = buildID(
+    buildid = buildID()
     buildEnv01 = buildEnv()
     //buildid = "d56231275a51908867856ea9e8bed0a45c48dbec"
   }
  
   stages{
       stage('Build'){
-	      //when { anyof { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
-	      when { environment name: 'depenv', value: 'Dev' }
-	      //when { or { 
-		//      environment name: 'depenv', value: 'Dev'
-		  //    environment name: 'depenv', value: 'Dev1'
-	            //     }
-	      //}
+	      when { { environment name: 'depenv', value: 'Dev' } || {environment name: 'depenv', value: 'Dev1'} }
       steps{
            script {
-		  GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                   sh "chmod +x -R ${env.WORKSPACE}"
                   //sh "${env.WORKSPACE}/../${env.JOB_NAME}@script/script.sh"
                   try {
@@ -58,13 +51,7 @@ pipeline{
     }
 
     stage('Upload'){
-      //when { anyof { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
-      when { environment name: 'depenv', value: 'Dev' }
-      //when { or { 
-	//	      environment name: 'depenv', value: 'Dev'
-	//	      environment name: 'depenv', value: 'Dev1'
-	  //               }
-	    //  }
+      when { { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
