@@ -19,7 +19,11 @@ pipeline{
  
   stages{
       stage('Build'){
-      when { any { environment name: 'depenv', value: 'Dev' } || {environment name: 'depenv', value: 'Dev1'} }
+      when { or { 
+	          environment name: 'depenv', value: 'Dev'
+	          environment name: 'depenv', value: 'Dev1'
+		}
+	   }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -51,7 +55,12 @@ pipeline{
     }
 
     stage('Upload'){
-      when { any { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
+      //when { any { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
+      when { or { 
+	          environment name: 'depenv', value: 'Dev'
+	          environment name: 'depenv', value: 'Dev1'
+		}
+           }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
