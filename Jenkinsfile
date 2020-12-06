@@ -19,7 +19,7 @@ pipeline{
  
   stages{
       stage('Build'){
-      when { environment name: 'depenv', value: 'Dev' }
+	      when { { environment name: 'depenv', value: 'Dev' } || {environment name: 'depenv', value: 'Dev1'} }
       steps{
            script {
                   sh "chmod +x -R ${env.WORKSPACE}"
@@ -31,7 +31,8 @@ pipeline{
 	            sh "echo ${depenv} testing ${buildid}"
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
-		    sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
+		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
+		    sh "/usr/bin/tar -cvzf AppDeploy.`date +%Y%m%d`.${depenv}.${BUILD_NUMBER}.gz *.sh* 
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
@@ -50,16 +51,19 @@ pipeline{
     }
 
     stage('Upload'){
-      when { environment name: 'depenv', value: 'Dev' } 
+      when { { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
-        script {
+	sh "cd ${env.WORKSPACE}"
+	ZIP_FIL = sh(returnStdOut: true, script: "ls -1 AppDeploy*.gz").trim()
+	      sh "echo ${ZIP_FIL}"
+	script {
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "LCADD"
-		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "version=${buildid}, New=latest"}]}'
+		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "version=${buildid}, ZIP=${ZIP_FIL}"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
@@ -130,7 +134,7 @@ def deployment(){
 		   return "Master"
 	   } else if (env.JOB_BASE_NAME.endsWith('-UAT')){
 		   return "UAT"
-	   } else if (env.JOB_BASE_NAME.endsWith('-QA')){
+	   } else if (env.JOB_BASE_NAME.endsWith('-DEV1')){
 		   return "QA"
 	   }
 
@@ -149,7 +153,7 @@ def deployevn(depenv){
 	         def RemoteID="NewSever00"
            return RemoteID
       }
-      else if ( depenv == "qa" || depenv == "Qa" || depenv == "QA" )
+      else if ( depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       {
 	         def RemoteID="NewSever00"
            return RemoteID
@@ -175,7 +179,7 @@ def server_name(depenv){
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
            	return "172.31.42.201"
       	}
- 	      else if (  depenv == "qa" || depenv == "Qa" || depenv == "QA" )
+ 	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
            	return "172.31.42.201"
@@ -202,7 +206,7 @@ def user_name(depenv){
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
            	return "newenv01"
       	}
- 	      else if (  depenv == "qa" || depenv == "Qa" || depenv == "QA" )
+ 	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
            	return "newenv01"
