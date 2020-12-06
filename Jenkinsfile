@@ -11,6 +11,7 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
+    ServerNames = ${SRV_Name}.split()
     USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
@@ -32,7 +33,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-	            sh "echo ${depenv} testing ${buildid}"
+		    sh "echo \"${depenv}, ${ServerNames}[0], ${ServerNames}[1], testing ${buildid}\""
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
@@ -176,22 +177,22 @@ def server_name(depenv){
       	{
            	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
            	//return "172.31.42.201"
-          		return "172.31.42.13"
+          		return "172.31.42.13|NewServer01|newenv00"
         }
       	else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	{
-           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "172.31.39.86"
+           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01|newenv02"
+           	return "172.31.39.86|/home/ec2-user/testdir/|RemoteID01|newenv02"
       	}
 	      else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
       	{
-           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "172.31.42.201"
+           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01|newenv01"
+           	return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
       	}
  	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "172.31.42.201"
+           	return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
       	}
 
     	}
