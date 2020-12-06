@@ -66,7 +66,7 @@ pipeline{
           sh "echo \"${env.BUILD_TAG}\""
           sh "echo ${depenv}"
 	  sh "cd ${env.WORKSPACE}"
-	  ZIP_FIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
+	  def ZIP_FIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
 	  sh "echo ${ZIP_FIL}"
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
