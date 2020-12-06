@@ -19,8 +19,8 @@ pipeline{
  
   stages{
       stage('Build'){
-      when { or { 
-	          environment name: 'depenv', value: 'Dev'
+      when { anyOf { 
+	          environment name: 'depenv', value: 'Dev';
 	          environment name: 'depenv', value: 'Dev1'
 		}
 	   }
@@ -56,8 +56,8 @@ pipeline{
 
     stage('Upload'){
       //when { any { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
-      when { or { 
-	          environment name: 'depenv', value: 'Dev'
+      when { anyOf { 
+	          environment name: 'depenv', value: 'Dev';
 	          environment name: 'depenv', value: 'Dev1'
 		}
            }
