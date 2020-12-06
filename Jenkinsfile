@@ -19,11 +19,13 @@ pipeline{
  
   stages{
       stage('Build'){
-	      when { or { 
-		      environment name: 'depenv', value: 'Dev'
-		      environment name: 'depenv', value: 'Dev1'
-	                 }
-	      }
+	      //when { anyof { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
+	      when { environment name: 'depenv', value: 'Dev' }
+	      //when { or { 
+		//      environment name: 'depenv', value: 'Dev'
+		  //    environment name: 'depenv', value: 'Dev1'
+	            //     }
+	      //}
       steps{
            script {
 		  GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
@@ -57,11 +59,12 @@ pipeline{
 
     stage('Upload'){
       //when { anyof { environment name: 'depenv', value: 'Dev' } || { environment name: 'depenv', value: 'Dev1' } }
-      when { or { 
-		      environment name: 'depenv', value: 'Dev'
-		      environment name: 'depenv', value: 'Dev1'
-	                 }
-	      }
+      when { environment name: 'depenv', value: 'Dev' }
+      //when { or { 
+	//	      environment name: 'depenv', value: 'Dev'
+	//	      environment name: 'depenv', value: 'Dev1'
+	  //               }
+	    //  }
       steps{
         sh "echo \"${env.BUILD_TAG}\""
         sh "echo ${depenv}"
