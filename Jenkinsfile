@@ -32,7 +32,7 @@ pipeline{
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
-		    sh "/usr/bin/tar -cvzf AppDeploy.`date +%Y%m%d`.${depenv}.${BUILD_NUMBER}.gz *.sh* 
+		    sh "/usr/bin/tar -cvzf AppDeploy.`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz *.sh* 
                     //sh "/usr/bin/bash /root/test/one.sh"
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
