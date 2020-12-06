@@ -11,7 +11,7 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    ServerNames = "${SRV_Name}.split(\"|\")[0]"
+    ServerNames = "${SRV_Name}.split('|')[0]"
     USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
