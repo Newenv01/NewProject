@@ -114,7 +114,7 @@ pipeline{
       }
     }*/
  
-    stage('Deploy Files to Remote'){
+    /*stage('Deploy Files to Remote'){
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	    sh "echo ${depenv}"
@@ -132,7 +132,7 @@ pipeline{
                  //ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
 	     }
          }
-    }
+    }*/
   }
   post {
       success {
