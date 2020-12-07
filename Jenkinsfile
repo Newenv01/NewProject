@@ -133,15 +133,7 @@ pipeline{
 	     }
          }
     }
-    post {
-      success {
-          sh "echo SUCESS"
-      }
-      failure {
-          sh "echo FAILURE"
-      }
-    }
-  //}
+  }
 }
 
 def deployment(){
