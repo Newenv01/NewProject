@@ -141,7 +141,7 @@ pipeline{
           sh "echo FAILURE"
       }
     }
-  }
+  //}
 }
 
 def deployment(){
