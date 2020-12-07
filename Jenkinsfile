@@ -69,7 +69,7 @@ pipeline{
 	  sh "cd ${env.WORKSPACE}"
 	  //ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
 	  def ZIPFIL= "AppDeploy"
-	  sh "echo ${ZIPFIL}"
+	  sh "echo \"${ZIPFIL} is good example\""
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
