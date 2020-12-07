@@ -67,13 +67,13 @@ pipeline{
           sh "echo \"${env.BUILD_TAG}\""
           sh "echo ${depenv}"
 	  sh "cd ${env.WORKSPACE}"
-	  ZIP_FIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
-	  sh "echo ${ZIP_FIL}"
+	  ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
+	  sh "echo ${ZIPFIL}"
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "LCADD"
-		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "ZIP=${ZIP_FIL}; ENV=$depenv}"}]}'
+		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "ZIP=${ZIPFIL};ENV=$depenv}"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
