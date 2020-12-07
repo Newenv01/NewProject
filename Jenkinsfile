@@ -42,6 +42,7 @@ pipeline{
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
                     sh "echo $BUILD_TAG"
+		    ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
                     //}
                   } catch (err) {
                       echo err.getMessage()
@@ -67,8 +68,7 @@ pipeline{
           sh "echo \"${env.BUILD_TAG}\""
           sh "echo ${depenv}"
 	  sh "cd ${env.WORKSPACE}"
-	  //ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
-	  def ZIPFIL= "AppDeploy"
+	  //def ZIPFIL= "AppDeploy"
 	  sh "echo \"${ZIPFIL} is good example\""
           buildName = 'LCADPB'
           buildNumber = "${env.BUILD_NUMBER}"
