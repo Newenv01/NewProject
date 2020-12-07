@@ -33,7 +33,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-			  sh "echo \"${depenv}, ${ServerNames}, testing ${buildid}\""
+		    sh "echo \"${depenv}, ${ServerNames}, testing ${buildid}\""
                     sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
@@ -73,7 +73,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "LCADD"
-		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "ZIP=${ZIP_FIL}"}]}'
+		      def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "ZIP=${ZIP_FIL}; ENV=$depenv}"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
