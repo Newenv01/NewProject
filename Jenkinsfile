@@ -128,9 +128,10 @@ pipeline{
 		      cd ${env.WORKSPACE}
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
-                      ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
+                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/down.sh\"
 		 """
                  //ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
+		 //ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
 	     }
          }
     }
@@ -185,23 +186,23 @@ def server_name(depenv){
 	      if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	{
            	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
-           	//return "172.31.42.201"
-          		return "172.31.42.13|NewServer01|newenv00"
+           	//return "172.31.42.13|NewServer01|newenv00"
+		return "172.31.42.13"
         }
       	else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	{
-           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01|newenv02"
-           	return "172.31.39.86|/home/ec2-user/testdir/|RemoteID01|newenv02"
+           	//return "172.31.39.86|/home/ec2-user/testdir/|RemoteID01|newenv02"
+		return "172.31.39.86"
       	}
 	      else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
       	{
-           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01|newenv01"
-           	return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
+                //return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
+		return "172.31.42.201"
       	}
  	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
-           	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
+           	//return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
+		return "172.31.42.201"
       	}
 
     	}
