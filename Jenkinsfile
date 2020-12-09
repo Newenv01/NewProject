@@ -197,7 +197,7 @@ def server_name(depenv){
 	      else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
       	{
                 //return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
-		return "172.31.42.201"
+		return "172.31.42.13"
       	}
  	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
@@ -224,7 +224,7 @@ def user_name(depenv){
 	      else if (  depenv == "uat" || depenv == "Uat" || depenv == "UAT" )
       	{
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "newenv01"
+           	return "newenv00"
       	}
  	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
