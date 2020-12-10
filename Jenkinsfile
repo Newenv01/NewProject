@@ -33,8 +33,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
                     sh "echo ${env.WORKSPACE}"
-		    sh "echo \"${depenv}, ${ServerNames}, testing ${buildid}\""
-                    sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
+		    sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
 		    sh "/usr/bin/tar -cvzf AppDeploy.`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz *.sh*"
