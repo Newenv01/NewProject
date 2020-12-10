@@ -11,7 +11,7 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    ServerNames = "${SRV_Name}.split('|')[0]"
+    //ServerNames = "${SRV_Name}.split('|')[0]"
     USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
@@ -173,10 +173,10 @@ def deployevn(depenv){
 	         def RemoteID="NewSever00"
            return RemoteID
       }
-      else if ( depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
+      else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
       {
-	         def RemoteID="NewSever00"
-           return RemoteID
+	         def RemoteID="NewSever01"
+                 return RemoteID
       }
     }
 }
@@ -194,10 +194,10 @@ def server_name(depenv){
            	//return "172.31.39.86|/home/ec2-user/testdir/|RemoteID01|newenv02"
 		return "172.31.39.86"
       	}
-	      else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
+	else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
       	{
                 //return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
-		return "172.31.42.13"
+		return "172.31.42.201"
       	}
  	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
@@ -224,7 +224,7 @@ def user_name(depenv){
 	      else if (  depenv == "uat" || depenv == "Uat" || depenv == "UAT" )
       	{
            	//return "172.31.8.211|/home/ec2-user/testdir/|RemoteID01"
-           	return "newenv00"
+           	return "newenv01"
       	}
  	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
       	{
