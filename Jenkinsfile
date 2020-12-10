@@ -60,7 +60,7 @@ pipeline{
           buildNumber = "${env.BUILD_NUMBER}"
           buildEnvironment = "${depenv}"
           def server = Artifactory.server "LCADD"
-		def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "version=${buildid}:latest"}]}'
+	  def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "version=${buildid}:latest"}]}'
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.name = buildName + '-' + buildEnvironment
@@ -115,7 +115,7 @@ pipeline{
 		 cd ${env.WORKSPACE}
 		 echo ${USR_Name}
 		 echo ${SRV_Name}
-		 ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
+		 ssh -vvv ${USR_Name}@${SRV_Name} \"/home/newenv01/testdir/downld.sh ${depenv}\"
 		 """
 		 //ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
         }
