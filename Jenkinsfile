@@ -11,7 +11,7 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    //ServerNames = "${SRV_Name}.split('|')[0]"
+    def (ServerNames, RmtPath, CredID) = SRV_Name.tokanize('|')
     USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
@@ -32,7 +32,7 @@ pipeline{
                   try {
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
-                    sh "echo ${env.WORKSPACE}"
+	            sh "echo \"${env.WORKSPACE}, ${ServerMames} ${RmtPath}, ${CredID}\""
 		    sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
@@ -189,12 +189,12 @@ def deployevn(depenv){
 }
 
 def server_name(depenv){
-	script{
-	      if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
+    script{
+        if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	{
-           	//return "172.31.2.140|/home/ec2-user/testdir/|RemoteMAc"
+           	return "172.31.42.201|/home/ec2-user/testdir/|RemoteMAc"
            	//return "172.31.42.13|NewServer01|newenv00"
-		return "172.31.42.201"
+		//return "172.31.42.201"
         }
       	else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	{
@@ -212,7 +212,7 @@ def server_name(depenv){
 		return "172.31.42.201"
       	}
 
-    	}
+    }
 }
 
 def user_name(depenv){
