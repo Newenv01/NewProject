@@ -42,9 +42,11 @@ pipeline{
                     sh "ls -ltr"
                     sh "echo $BUILD_TAG"
 		    ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
+	            currentBuild.result = "SUCCESS"
                     //}
                   } catch (err) {
                       echo err.getMessage()
+		      throw (err)
                       echo "Error detected - BUILD Failure."
                       currentBuild.result = 'FAILURE'
                       mail to: 'balu0priya1@gmail.com',
