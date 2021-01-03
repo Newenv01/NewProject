@@ -66,22 +66,28 @@ pipeline{
            }
       steps{
         script {
-          sh "echo \"${env.BUILD_TAG}\""
-          sh "echo ${depenv}"
-	  sh "cd ${env.WORKSPACE}"
-	  def ZIPFIL= "AppDeploy"
-	  sh "echo \"${ZIPFIL} is good example\""
-          buildName = 'LCADPB'
-          buildNumber = "${env.BUILD_NUMBER}"
-          buildEnvironment = "${depenv}"
-          def server = Artifactory.server "LCADD"
-          def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "FIL=$ZIPFIL"}]}'
+	  try {
+	    sh "echo \"${env.BUILD_TAG}\""
+            sh "echo ${depenv}"
+	    sh "cd ${env.WORKSPACE}"
+	    def ZIPFIL= "AppDeploy"
+	    sh "echo \"${ZIPFIL} is good example\""
+            buildName = 'LCADPB'
+            buildNumber = "${env.BUILD_NUMBER}"
+            buildEnvironment = "${depenv}"
+            def server = Artifactory.server "LCADD"
+            def uploadSpec = '{"files": [{"pattern": "*.gz", "target": "LCADDEV/", "props": "FIL=$ZIPFIL"}]}'
 
-          def buildInfo = Artifactory.newBuildInfo()
-          buildInfo.name = buildName + '-' + buildEnvironment
-          //buildInfo.number = "LCAD_Release_Number"
-          server.upload spec: uploadSpec, buildInfo: buildInfo
-          server.publishBuildInfo buildInfo
+            def buildInfo = Artifactory.newBuildInfo()
+            buildInfo.name = buildName + '-' + buildEnvironment
+            //buildInfo.number = "LCAD_Release_Number"
+            server.upload spec: uploadSpec, buildInfo: buildInfo
+            currentBuild.result = 'FAILURE'
+	  } catch (err) {
+	  server.publishBuildInfo buildInfo
+	  throw (err)
+          currentBuild.result = 'FAILURE'
+          }
         }
       }
     }
