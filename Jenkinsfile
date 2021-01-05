@@ -11,9 +11,9 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-    def ServerName = "${SRV_Name}.split('\\|')[0]"
-    def RemoteServer = "${SRV_Name}.split('\\|')[1]"
-    def RemoteID = "${SRV_Name}.split('\\|')[2]"
+	  def ServerName = "${SRV_Name.tokenize('\\|')[0]}"
+	  def RemoteServer = "${SRV_Name.tokenize('\\|')[1]}"
+	  def RemoteID = "${SRV_Name.tokenize('\\|')[2]}"
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     USR_Name = user_name(depenv)
     buildid = buildID()
