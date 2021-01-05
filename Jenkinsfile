@@ -13,9 +13,6 @@ pipeline{
     SRV_Name = server_name(depenv)
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     def ServerNames = SRV_Name.split('\\|')
-    def ServerName = ServerNames[0]
-    def RemotePath = ServerNAmes[1]
-    def RMID = ServerNames[2]
     USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
@@ -37,7 +34,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
 	            //sh "echo \"${env.WORKSPACE}, ${ServerMames} ${RmtPath}, ${CredID}\""
-			  sh "echo \"${env.WORKSPACE}, ${ServerNames}, ${ServerName}, ${RemotePath}\""
+			  sh "echo \"${env.WORKSPACE}, ${ServerNames}, ${ServerNames}[0]\""
 		    sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
