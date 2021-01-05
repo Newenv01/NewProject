@@ -1,4 +1,10 @@
 currentBuild.displayName = "LCADPIP-#"+currentBuild.number
+depenv = "$DepEnv"
+Remote_ID = deployevn(depenv)
+SRV_Name = server_name(depenv)
+def ServerName = SRV_Name.split('\\|')[0]
+def RemoteServer = SRV_Name.split('\\|')[1]
+def RemoteID = SRV_Name.split('\\|')[2]
 
 pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
@@ -12,9 +18,6 @@ pipeline{
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
-    def ServerName = SRV_Name.split('\\|')[0]
-    def RemoteServer = SRV_Name.split('\\|')[1]
-    def RemoteID = SRV_Name.split('\\|')[2]
     USR_Name = user_name(depenv)
     buildid = buildID()
     buildEnv01 = buildEnv()
