@@ -1,10 +1,4 @@
 currentBuild.displayName = "LCADPIP-#"+currentBuild.number
-depenv = "$DepEnv"
-Remote_ID = deployevn(depenv)
-SRV_Name = server_name(depenv)
-def ServerName = SRV_Name.split('\\|')[0]
-def RemoteServer = SRV_Name.split('\\|')[1]
-def RemoteID = SRV_Name.split('\\|')[2]
 
 pipeline{
   options { timeout(time: 3, unit: 'MINUTES') }
@@ -17,6 +11,9 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
+    def ServerName = "${SRV_Name}.split('\\|')[0]"
+    def RemoteServer = "${SRV_Name}.split('\\|')[1]"
+    def RemoteID = "${SRV_Name}.split('\\|')[2]"
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     USR_Name = user_name(depenv)
     buildid = buildID()
@@ -39,7 +36,7 @@ pipeline{
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
 	            //sh "echo \"${env.WORKSPACE}, ${ServerMames} ${RmtPath}, ${CredID}\""
-			  sh "echo \"${env.WORKSPACE}, ${ServerNames}, ${ServerName}\""
+     		    sh "echo \"${env.WORKSPACE}, ${ServerNames}, ${ServerName}\""
 		    sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
 	            sh "/usr/bin/rm -fr *.gz"
 		    //sh "/usr/bin/gzip -f -S .`date +%Y%m%d`.${depenv}.${env.BUILD_NUMBER}.gz ${env.WORKSPACE}/*.sh"
