@@ -9,7 +9,7 @@ pipeline{
     //depenv = "${env.JOB_NAME}".split('-').last()
     //depenv = deployment()
     depenv = "$DepEnv"
-    //Remote_ID = deployevn(depenv)
+    Remote_ID = deployevn(depenv)
     SRV_Name = buildInfo(depenv)
     def ServerName = "${SRV_Name.split('\\|')[0]}"
     def RemoteServer = "${SRV_Name.split('\\|')[1]}"
