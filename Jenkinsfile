@@ -142,6 +142,7 @@ pipeline{
 		      echo ${BULD_NUM}
                       ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
+	     }
 	    } else {
                 def ServerName01 = "${SRV_Name.split('\\|')[3]}"
                 def RemoteServer01 = "${SRV_Name.split('\\|')[4]}"
@@ -154,7 +155,7 @@ pipeline{
 		      echo \"${BULD_NUM}, ${RemoteID} and ${RemoteID01}\"
                       ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv00/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
-	     }
+	        }
 	    }	    
          }
       }
