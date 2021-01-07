@@ -135,7 +135,7 @@ pipeline{
 	    sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
 		 //scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
-		 if ( $BULD_NUM != "" ) {
+		 if ( BULD_NUM != "" ) {
 		    def BLD_NUM = "${BULD_NUM}"
 		 } else {
 	            def BLD_NUM = "latest"
