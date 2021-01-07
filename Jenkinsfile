@@ -9,12 +9,12 @@ pipeline{
     //depenv = "${env.JOB_NAME}".split('-').last()
     //depenv = deployment()
     depenv = "$DepEnv"
-    Remote_ID = deployevn(depenv)
-    SRV_Name = server_name(depenv)
-	  //def ServerName = "${SRV_Name.split('\\|')[0]}"
-	  //def RemoteServer = "${SRV_Name.split('\\|')[1]}"
-	  //def RemoteID = "${SRV_Name.split('\\|')[2]}"
-	  //def BLD_NUM = buildNum(BULD_NUM)
+    //Remote_ID = deployevn(depenv)
+    SRV_Name = buildInfo(depenv)
+    def ServerName = "${SRV_Name.split('\\|')[0]}"
+    def RemoteServer = "${SRV_Name.split('\\|')[1]}"
+    def RemoteID = "${SRV_Name.split('\\|')[2]}"
+    //def BLD_NUM = buildNum(BULD_NUM)
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     USR_Name = user_name(depenv)
     buildid = buildID()
@@ -131,15 +131,28 @@ pipeline{
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	  //script{
+	    if ( BRANCH == "uat" || BRANCH == "Dev2" || BRANCH == "Dev2" )
+	    {
 	    sh "echo ${depenv}"
 	    sshagent(["${Remote_ID}"]) {  
                 sh """
-		      whoami 
-		      cd ${env.WORKSPACE}
+		      whoami
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
 		      echo ${BULD_NUM}
-                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
+                      ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
+		 """
+	    } else {
+                def ServerName01 = "${SRV_Name.split('\\|')[3]}"
+                def RemoteServer01 = "${SRV_Name.split('\\|')[4]}"
+                def RemoteID01 = "${SRV_Name.split('\\|')[5]}"
+                sshagent(["${Remote_ID}"]) {  
+                sh """
+		      whoami
+		      echo \"${USR_Name}, ${ServerName} and ${ServerName01}\"
+		      echo \"${SRV_Name}, ${RemoteServer} and ${RemoteServer01}\"
+		      echo \"${BULD_NUM}, ${RemoteID} and ${RemoteID01}\"
+                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv00/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
 	     }
          }
@@ -254,5 +267,34 @@ def buildID(){
 def buildEnv(){
     script{
       return sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+    }
+}
+
+def buildInfo(depenv){
+    script{
+        if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
+      	{
+           	return "172.31.42.201|/home/newenv01/testdir/|newenv01|172.31.42.201|/home/newenv00/testdir/|newenv00"
+           	//return "172.31.42.13|NewServer01|newenv00"
+		//return "172.31.42.201"
+        }
+      	else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
+      	{
+           	//return "172.31.39.86|/home/ec2-user/testdir/|RemoteID01|newenv02"
+		return "172.31.39.86"
+      	}
+	else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
+      	{
+                //return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
+		//return "172.31.42.201"
+		//return "172.31.42.201|/home/newenv01/testdir/|RemoteMAc"
+		return "172.31.42.201|/home/newenv01/testdir/|newenv01"
+      	}
+ 	      else if (  depenv == "dev1" || depenv == "Dev1" || depenv == "DEV1" )
+      	{
+           	//return "172.31.42.201|/home/ec2-user/testdir/|RemoteID01|newenv01"
+		return "172.31.42.201"
+      	}
+
     }
 }
