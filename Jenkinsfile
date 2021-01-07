@@ -14,6 +14,7 @@ pipeline{
 	  def ServerName = "${SRV_Name.split('\\|')[0]}"
 	  def RemoteServer = "${SRV_Name.split('\\|')[1]}"
 	  def RemoteID = "${SRV_Name.split('\\|')[2]}"
+	  def BLD_NUM = buildNum(BULD_NUM)
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     USR_Name = user_name(depenv)
     buildid = buildID()
@@ -135,11 +136,11 @@ pipeline{
 	    sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
 		 //scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
-		 if ( BULD_NUM != "" ) {
+		 /*if ( BULD_NUM != "" ) {
 		    def BLD_NUM = "${BULD_NUM}"
 		 } else {
 	            def BLD_NUM = "latest"
-		 }
+		 }*/
                  sh """
 		      whoami 
 		      cd ${env.WORKSPACE}
@@ -265,7 +266,7 @@ def buildEnv(){
     }
 }
 
-/* buildnum(){
+buildNum(BULD_ENV_NUM){
     script{
 	if ( BULD_ENV_NUM == "latest" )
 	{
@@ -273,7 +274,7 @@ def buildEnv(){
 	}
         else
 	{
-	   return "${BULD_ENV_NUM}"
+	   return "${BULD_NUM}"
         }
     }	
-}*/
+}
