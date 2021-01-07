@@ -266,7 +266,7 @@ def buildEnv(){
     }
 }
 
-buildNum(BULD_ENV_NUM){
+def buildNum(BULD_ENV_NUM){
     script{
 	if ( BULD_ENV_NUM == "latest" )
 	{
