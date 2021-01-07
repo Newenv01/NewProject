@@ -14,7 +14,7 @@ pipeline{
 	  def ServerName = "${SRV_Name.split('\\|')[0]}"
 	  def RemoteServer = "${SRV_Name.split('\\|')[1]}"
 	  def RemoteID = "${SRV_Name.split('\\|')[2]}"
-	  def BLD_NUM = buildNum(BULD_NUM)
+	  //def BLD_NUM = buildNum(BULD_NUM)
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     USR_Name = user_name(depenv)
     buildid = buildID()
@@ -146,7 +146,7 @@ pipeline{
 		      cd ${env.WORKSPACE}
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
-                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BLD_NUM}\"
+                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
                  //ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
 		 //ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
@@ -266,7 +266,7 @@ def buildEnv(){
     }
 }
 
-def buildNum(BULD_ENV_NUM){
+/*def buildNum(BULD_ENV_NUM){
     script{
 	if ( BULD_ENV_NUM == "latest" )
 	{
@@ -277,4 +277,4 @@ def buildNum(BULD_ENV_NUM){
 	   return "${BULD_NUM}"
         }
     }	
-}
+}*/
