@@ -130,7 +130,7 @@ pipeline{
     stage('Deploy Files to Remote'){
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
-	  //script{
+	  script{
 	    if ( BRANCH == "uat" || BRANCH == "Dev2" || BRANCH == "Dev2" )
 	    {
 	    sh "echo ${depenv}"
@@ -157,6 +157,7 @@ pipeline{
 		 """
 	        }
 	    }	    
+	  }
          }
       }
     //}
