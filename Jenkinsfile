@@ -146,6 +146,7 @@ pipeline{
 		      cd ${env.WORKSPACE}
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
+		      echo ${BULD_NUM}
                       ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
                  //ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
