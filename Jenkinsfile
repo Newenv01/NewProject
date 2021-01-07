@@ -132,7 +132,7 @@ pipeline{
       steps{
 	  //script{
 	    sh "echo ${depenv}"
-	    sshagent(["${Remote_ID}"]) {  
+	    //sshagent(["${Remote_ID}"]) {  
                 sh """
 		      whoami 
 		      cd ${env.WORKSPACE}
@@ -143,7 +143,7 @@ pipeline{
 		 """
                  //ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
 		 //ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
-	     }
+	     //}
          }
       }
     //}
