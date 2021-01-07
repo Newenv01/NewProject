@@ -129,22 +129,29 @@ pipeline{
     stage('Deploy Files to Remote'){
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
+	  script{
 	    sh "echo ${depenv}"
 	    //script{
 	    sshagent(["${Remote_ID}"]) {  
                  //scp -o StrictHostKeyChecking=no ${env.WORKSPACE}/*.gz ec2-user@${Remote_ID}:/home/ec2-user/testdir/
 		 //scp -o StrictHostKeyChecking=no -v ${env.WORKSPACE}/*.gz newenv00@${SRV_Name}:/home/newenv00/test00
+		 if ( $BULD_NUM != "" ) {
+		    def BLD_NUM = "${BULD_NUM}"
+		 } else {
+	            def BLD_NUM = "latest"
+		 }
                  sh """
 		      whoami 
 		      cd ${env.WORKSPACE}
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
-                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/testdir/down.sh ${depenv}\"
+                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BLD_NUM}\"
 		 """
                  //ssh ${USR_Name}@${SRV_Name} \"/root/test/downld.sh \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
 		 //ssh ${USR_Name}@${SRV_Name} \"wget --user=admin --password=AP44rK5FLUuFrRt7jKeNrjSShcu \"http://172.31.8.211:8081/artifactory/LCADDEV/two.sh.20201129.${depenv}.${env.BUILD_NUMBER}.gz\"\"
 	     }
          }
+      }
     }
   }
   post {
@@ -257,3 +264,16 @@ def buildEnv(){
       return sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
     }
 }
+
+/* buildnum(){
+    script{
+	if ( BULD_ENV_NUM == "latest" )
+	{
+	   return "latest"
+	}
+        else
+	{
+	   return "${BULD_ENV_NUM}"
+        }
+    }	
+}*/
