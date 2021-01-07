@@ -256,16 +256,3 @@ def buildEnv(){
       return sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
     }
 }
-
-/*def buildNum(BULD_ENV_NUM){
-    script{
-	if ( BULD_ENV_NUM == "latest" )
-	{
-	   return "latest"
-	}
-        else
-	{
-	   return "${BULD_NUM}"
-        }
-    }	
-}*/
