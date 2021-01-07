@@ -155,6 +155,7 @@ pipeline{
                       ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv00/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
 	     }
+	    }	    
          }
       }
     //}
