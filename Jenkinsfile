@@ -205,7 +205,7 @@ def server_name(depenv){
     script{
         if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	{
-           	return "172.31.42.201|/home/ec2-user/testdir/|RemoteMAc"
+           	return "172.31.42.201|/home/newenv01/testdir/|RemoteMAc"
            	//return "172.31.42.13|NewServer01|newenv00"
 		//return "172.31.42.201"
         }
