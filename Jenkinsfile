@@ -131,7 +131,7 @@ pipeline{
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	  script{
-	    if ( BRANCH == "uat" || BRANCH == "Dev2" || BRANCH == "Dev2" )
+	    if ( depenv == "uat" || depenv == "Dev2" || depenv == "Dev2" )
 	    {
 	    sh "echo ${depenv}"
 	    sshagent(["${Remote_ID}"]) {  
