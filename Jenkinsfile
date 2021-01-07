@@ -11,9 +11,9 @@ pipeline{
     depenv = "$DepEnv"
     Remote_ID = deployevn(depenv)
     SRV_Name = server_name(depenv)
-	  def ServerName = "${SRV_Name.split('\\|')[0]}"
-	  def RemoteServer = "${SRV_Name.split('\\|')[1]}"
-	  def RemoteID = "${SRV_Name.split('\\|')[2]}"
+	  //def ServerName = "${SRV_Name.split('\\|')[0]}"
+	  //def RemoteServer = "${SRV_Name.split('\\|')[1]}"
+	  //def RemoteID = "${SRV_Name.split('\\|')[2]}"
 	  //def BLD_NUM = buildNum(BULD_NUM)
     //def (ServerNames, RmtPath, CredID) = "${SRV_Name}.tokanize("|")"
     USR_Name = user_name(depenv)
@@ -190,7 +190,7 @@ def deployevn(depenv){
       }
       else if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       {
-	         def RemoteID="NewSever00"
+	   def RemoteID="NewSever00"
            return RemoteID
       }
       else if (  depenv == "uat" || depenv == "UAT" || depenv == "Uat" )
@@ -205,9 +205,9 @@ def server_name(depenv){
     script{
         if ( depenv == "dev" || depenv == "Dev" || depenv == "DEV" )
       	{
-           	return "172.31.42.201|/home/newenv01/testdir/|RemoteMAc"
+           	//return "172.31.42.201|/home/newenv01/testdir/|RemoteMAc"
            	//return "172.31.42.13|NewServer01|newenv00"
-		//return "172.31.42.201"
+		return "172.31.42.201"
         }
       	else if (  depenv == "master" || depenv == "Master" || depenv == "MASTER" )
       	{
