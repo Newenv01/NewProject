@@ -140,7 +140,7 @@ pipeline{
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
 		      echo ${BULD_NUM}
-                      ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
+                      ssh -vvv ${ServerName}@${RemoteID} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
 	     }
 	    } else {
@@ -150,10 +150,10 @@ pipeline{
                 sshagent(["${Remote_ID}"]) {  
                 sh """
 		      whoami
-		      echo \"${USR_Name}, ${ServerName} and ${ServerName01}\"
-		      echo \"${SRV_Name}, ${RemoteServer} and ${RemoteServer01}\"
-		      echo \"${BULD_NUM}, ${RemoteID} and ${RemoteID01}\"
-                      ssh -vvv ${USR_Name}@${SRV_Name} \"ksh -x /home/newenv00/testdir/down.sh ${depenv} ${BULD_NUM}\"
+		      echo \" ${ServerName} and ${ServerName01}\"
+		      echo \"${RemoteServer} and ${RemoteServer01}\"
+		      echo \"${RemoteID} and ${RemoteID01}\"
+                      ssh -vvv ${ServerName}@${RemoteID} \"ksh -x /home/newenv00/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
 	        }
 	    }	    
