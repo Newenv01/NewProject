@@ -46,6 +46,7 @@ pipeline{
                     //sh 'pwr=$(pwd); $pwr/script.sh "/test/root/one.sh"'
                     sh "ls -ltr"
                     sh "echo $BUILD_TAG"
+		    sh "scp -vvv $env.WORKSPACE}/*.* ${RemoteID}@${ServerName}:/home/newenv01/testdir/newfile/"
 		    ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
 	            currentBuild.result = "SUCCESS"
                     //}
