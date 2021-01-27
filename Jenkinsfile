@@ -132,7 +132,7 @@ pipeline{
       //when { not { environment name: 'depenv', value: 'Dev' } }
       steps{
 	  script{
-	    if ( depenv == "uat" || depenv == "Dev2" || depenv == "Dev2" )
+	    if ( depenv == "uat" || depenv == "Dev2" || depenv == "Dev" )
 	    {
 	    sh "echo ${depenv}"
 	    sshagent(["${Remote_ID}"]) {  
@@ -141,7 +141,7 @@ pipeline{
 		      echo ${USR_Name}
 		      echo ${SRV_Name}
 		      echo ${BULD_NUM}
-                      ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
+                      ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM} ${BUILD_NUMBER}\"
 		 """
 	     }
 	    } else {
@@ -154,7 +154,7 @@ pipeline{
 		      echo \" ${ServerName} and ${ServerName01}\"
 		      echo \"${RemoteServer} and ${RemoteServer01}\"
 		      echo \"${RemoteID} and ${RemoteID01}\"
-                      ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
+                      ssh -vvv ${RemoteID01}@${ServerName01} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
 	        }
 	    }	    
