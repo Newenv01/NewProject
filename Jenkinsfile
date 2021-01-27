@@ -154,7 +154,7 @@ pipeline{
 		      echo \" ${ServerName} and ${ServerName01}\"
 		      echo \"${RemoteServer} and ${RemoteServer01}\"
 		      echo \"${RemoteID} and ${RemoteID01}\"
-                      ssh -vvv ${RemoteID01}@${ServerName01} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
+                      ssh -vvv ${RemoteID}@${ServerName} \"ksh -x /home/newenv01/testdir/down.sh ${depenv} ${BULD_NUM}\"
 		 """
 	        }
 	    }	    
