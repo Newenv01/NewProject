@@ -89,7 +89,7 @@ pipeline{
             //buildInfo.number = "LCAD_Release_Number"
             server.upload spec: uploadSpec, buildInfo: buildInfo
             currentBuild.result = 'FAILURE'
-            sh "exit 0"
+            sh "exit 1"
 	  } catch (err) {
 	  server.publishBuildInfo buildInfo
 	  throw (err)
