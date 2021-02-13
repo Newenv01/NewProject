@@ -36,7 +36,7 @@ pipeline{
                   try {
                     //dir('/home/testenv/'){    
                     sh "sh /home/testenv/one.sh"
-                    echo "Testing"
+                    echo "Testing New"
 	            //sh "echo \"${env.WORKSPACE}, ${ServerMames} ${RmtPath}, ${CredID}\""
      		    //sh "echo \"${env.WORKSPACE}, ${RemoteID}, ${ServerName}\""
 		    sh "/usr/bin/cp /home/testenv/*.* ${env.WORKSPACE}/"
