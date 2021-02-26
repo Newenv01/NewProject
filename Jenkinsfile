@@ -49,6 +49,8 @@ pipeline{
                     sh "echo $BUILD_TAG"
 		    sh "scp -vvv -o StrictHostKeyChecking=no *.* ${RemoteID}@${ServerName}:/home/newenv01/testdir/newfile/"
 		    sh "mkdir ${HOME}/testdir"
+		    sh "cd ${HOME}/testdir"
+		    sh "touch new.$$.txt"
 		    sh "pwd"
 		    ZIPFIL = sh(returnStdout: true, script: "ls -1 AppDeploy*.gz").trim()
 	            currentBuild.result = "SUCCESS"
